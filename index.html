@@ -13,7 +13,7 @@
     <!-- Google Fonts for High-End Developer Aesthetic -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@500;600;700&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 
     <!-- Core Compilation Framework via unpkg -->
     <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
@@ -59,17 +59,19 @@
 
           <div class="input-field-wrapper">
             <label for="qr-data-input" class="visually-hidden" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">Content or Destination URL</label>
-            <textarea
-              id="qr-data-input"
-              class="text-input-field"
-              rows="3"
-              placeholder="Enter destination URL, plain text, Wi-Fi credentials, or vCard..."
-              autofocus
-              spellcheck="false"
-              aria-describedby="char-count-info"
-            >https://anyone's-QR_gen.me</textarea>
+            <div style="position: relative;">
+              <textarea
+                id="qr-data-input"
+                class="text-input-field"
+                rows="3"
+                placeholder="Enter destination URL, website, Wi-Fi credentials, or plain text..."
+                spellcheck="false"
+                aria-describedby="char-count-info"
+              >https://your-website-url.com</textarea>
+              <button type="button" id="btn-clear-payload" class="btn-input-clear" style="position: absolute; top: 10px; right: 10px;" title="Clear payload text" aria-label="Clear payload text">✕</button>
+            </div>
             <div class="input-footer" id="char-count-info">
-              <span class="char-counter"><span id="char-count">24</span> characters</span>
+              <span class="char-counter"><span id="char-count">27</span> characters</span>
               <div style="display: flex; align-items: center; gap: 0.5rem;">
                 <label for="ecc-select" style="color: var(--text-muted);">Redundancy:</label>
                 <select id="ecc-select" class="select-input" aria-label="Error Correction Level">
@@ -194,7 +196,107 @@
           </div>
         </section>
 
-        <!-- Section 4: Asset Logo Integration -->
+        <!-- Section 4: Brand / Company Identifier & Typography (New Customization) -->
+        <section class="console-card" aria-labelledby="section-brand-title">
+          <div class="card-header">
+            <div class="card-title-group">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+              <h2 id="section-brand-title" class="card-title">Brand / Company Identifier</h2>
+            </div>
+            <div class="brand-placement-tag" id="brand-placement-status">
+              <span>Top Header</span>
+            </div>
+          </div>
+
+          <!-- Company / Chosen Name Text Input -->
+          <div class="input-field-wrapper">
+            <label for="brand-name-input" class="color-channel-label" style="display: flex; justify-content: space-between;">
+              <span>Company or Chosen Label</span>
+              <span style="font-size: 0.68rem; color: var(--text-muted);">Optional Header/Footer</span>
+            </label>
+            <div style="position: relative; display: flex; align-items: center;">
+              <input
+                type="text"
+                id="brand-name-input"
+                class="brand-text-field"
+                placeholder="Enter company name, brand title, or custom label..."
+                value="YOUR COMPANY NAME"
+                maxlength="60"
+                spellcheck="false"
+                aria-label="Company or chosen name for QR code banner"
+              />
+              <button type="button" id="btn-clear-brand" class="btn-input-clear" title="Clear text" aria-label="Clear brand label">✕</button>
+            </div>
+          </div>
+
+          <!-- Placement: Top, Bottom, or None -->
+          <div class="corner-control-group">
+            <span class="corner-control-label">Position Alignment:</span>
+            <div class="placement-button-group" role="radiogroup" aria-label="Brand Label Placement">
+              <button type="button" class="placement-button active" data-brand-pos="top" role="radio" aria-checked="true">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                Top Header
+              </button>
+              <button type="button" class="placement-button" data-brand-pos="bottom" role="radio" aria-checked="false">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+                Bottom Footer
+              </button>
+              <button type="button" class="placement-button" data-brand-pos="none" role="radio" aria-checked="false">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                None
+              </button>
+            </div>
+          </div>
+
+          <!-- Typography Type & Color Matrix -->
+          <div class="brand-typography-grid">
+            <!-- Font Family Selector -->
+            <div class="color-channel-unit">
+              <label for="brand-font-select" class="color-channel-label">Font Type / Style</label>
+              <select id="brand-font-select" class="brand-font-dropdown" aria-label="Select Typography Font Type">
+                <option value="'JetBrains Mono', monospace" selected>Tech Mono (JetBrains Mono)</option>
+                <option value="'Plus Jakarta Sans', sans-serif">Modern Sans (Plus Jakarta)</option>
+                <option value="'Space Grotesk', sans-serif">Cyber Display (Space Grotesk)</option>
+                <option value="'Outfit', sans-serif">Geometric (Outfit)</option>
+                <option value="'Playfair Display', serif">Luxury Serif (Playfair)</option>
+                <option value="'Cinzel', serif">Classical Roman (Cinzel)</option>
+                <option value="Impact, sans-serif">Heavy Impact (Bold)</option>
+              </select>
+            </div>
+
+            <!-- Font Color Picker -->
+            <div class="color-channel-unit">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label for="brand-color-hex" class="color-channel-label">Font Color</label>
+                <button type="button" id="btn-sync-brand-color" class="btn-sync-color" title="Match QR code pattern color">Sync Pattern</button>
+              </div>
+              <div class="color-picker-composite">
+                <input type="color" id="brand-color-picker" class="native-color-picker" value="#00F2FE" title="Pick label font color" aria-label="Label font color picker" />
+                <input type="text" id="brand-color-hex" class="color-hex-text" value="#00F2FE" maxlength="7" spellcheck="false" aria-label="Label font color hex" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Font Size Slider & Uppercase Modifier -->
+          <div class="logo-tuning-row" style="display: grid; padding-top: 0.25rem;">
+            <div class="slider-group">
+              <div class="slider-label">
+                <span>Font Size:</span>
+                <span id="brand-size-val">15px</span>
+              </div>
+              <input type="range" id="brand-size-slider" class="slider-input" min="11" max="24" step="1" value="15" aria-label="Label font size in pixels" />
+            </div>
+            <div class="slider-group">
+              <div class="slider-label">
+                <span>Letter Tracking:</span>
+                <span id="brand-spacing-val">2.5px</span>
+              </div>
+              <input type="range" id="brand-spacing-slider" class="slider-input" min="0" max="6" step="0.5" value="2.5" aria-label="Label letter spacing" />
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 5: Asset Logo Integration -->
         <section class="console-card" aria-labelledby="section-logo-title">
           <div class="card-header">
             <div class="card-title-group">
@@ -276,8 +378,12 @@
             <div class="corner-bracket corner-bottom-left" aria-hidden="true"></div>
             <div class="corner-bracket corner-bottom-right" aria-hidden="true"></div>
 
-            <!-- Internal Crisp SVG Canvas Mounting Container -->
-            <div id="qr-canvas-wrapper" role="img" aria-label="Generated custom QR code"></div>
+            <!-- Internal Crisp Composite Card Container -->
+            <div id="qr-composite-card" class="qr-composite-card" role="img" aria-label="Generated custom QR code with brand label">
+              <div id="qr-brand-label-top" class="qr-brand-label qr-label-top" style="display: block;">YOUR COMPANY NAME</div>
+              <div id="qr-canvas-wrapper" class="qr-canvas-wrapper" aria-hidden="true"></div>
+              <div id="qr-brand-label-bottom" class="qr-brand-label qr-label-bottom" style="display: none;"></div>
+            </div>
           </div>
 
           <!-- Calculated Real-Time Metadata Panel -->
@@ -289,11 +395,11 @@
               </div>
               <div class="metadata-item">
                 <span class="meta-label">Output Resolution</span>
-                <span class="meta-value">400 × 400 px (SVG / Hi-Res)</span>
+                <span id="meta-res" class="meta-value">400 × 450 px (Composite)</span>
               </div>
               <div class="metadata-item">
-                <span class="meta-label">Target Domain Reference</span>
-                <span class="meta-value accent">anyone's-QR_gen.me</span>
+                <span class="meta-label">Brand Identifier</span>
+                <span id="meta-brand-tag" class="meta-value accent">Top: "YOUR COMPANY NAME"</span>
               </div>
               <div class="metadata-item">
                 <span class="meta-label">Security State</span>

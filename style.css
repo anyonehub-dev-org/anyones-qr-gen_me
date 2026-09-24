@@ -631,6 +631,143 @@ body::after {
 }
 
 /* ==========================================================================
+   Brand / Company Identifier & Typography (New Customization)
+   ========================================================================== */
+
+.brand-placement-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: var(--accent-teal);
+  background: rgba(0, 242, 254, 0.08);
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.brand-text-field {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  padding: 0.65rem 2.2rem 0.65rem 0.85rem;
+  line-height: 1.4;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.brand-text-field:focus {
+  border-color: var(--electric-blue);
+  box-shadow: 0 0 0 1px var(--electric-blue), 0 0 12px var(--electric-blue-glow);
+}
+
+.btn-input-clear {
+  position: absolute;
+  right: 8px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: color var(--transition-fast);
+}
+
+.btn-input-clear:hover {
+  color: var(--danger);
+}
+
+.placement-button-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.placement-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 0.74rem;
+  font-family: var(--font-mono);
+  padding: 0.5rem 0.4rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.placement-button:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+  background: var(--bg-surface-elevated);
+}
+
+.placement-button.active {
+  background: rgba(56, 119, 255, 0.12);
+  border-color: var(--electric-blue);
+  color: var(--electric-blue-hover);
+  box-shadow: 0 0 10px var(--electric-blue-glow);
+}
+
+.brand-typography-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 0.85rem;
+}
+
+.brand-font-dropdown {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  padding: 0.58rem 0.65rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition-fast);
+}
+
+.brand-font-dropdown:focus {
+  border-color: var(--electric-blue);
+  box-shadow: 0 0 0 1px var(--electric-blue-glow);
+}
+
+.brand-font-dropdown option {
+  background: #141722;
+  color: #f8fafc;
+}
+
+.btn-sync-color {
+  background: transparent;
+  border: none;
+  color: var(--accent-teal);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  opacity: 0.85;
+  transition: opacity var(--transition-fast);
+}
+
+.btn-sync-color:hover {
+  opacity: 1;
+}
+
+/* ==========================================================================
    Asset Logo Integration (Drag and Drop)
    ========================================================================== */
 
@@ -900,7 +1037,8 @@ body::after {
 .stage-canvas-frame {
   position: relative;
   width: 440px;
-  height: 440px;
+  min-height: 440px;
+  height: auto;
   border-radius: 20px;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
@@ -909,6 +1047,7 @@ body::after {
     0 0 0 1px rgba(255, 255, 255, 0.04),
     0 0 35px rgba(157, 78, 221, 0.08);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
@@ -923,20 +1062,56 @@ body::after {
     0 0 45px rgba(157, 78, 221, 0.18);
 }
 
+/* Internal Composite Card Container */
+.qr-composite-card {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-base);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+/* Brand Text Header & Footer Labels */
+.qr-brand-label {
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  line-height: 1.25;
+  word-break: break-word;
+  user-select: none;
+  box-sizing: border-box;
+  transition: all var(--transition-fast);
+  color: var(--accent-teal);
+  letter-spacing: 2px;
+}
+
+.qr-label-top {
+  padding: 14px 18px 8px;
+}
+
+.qr-label-bottom {
+  padding: 8px 18px 14px;
+}
+
 /* Internal QR Canvas Wrapper */
-#qr-canvas-wrapper {
+.qr-canvas-wrapper, #qr-canvas-wrapper {
   width: 400px;
   height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
   overflow: hidden;
   background: #ffffff;
   transition: background-color var(--transition-fast);
 }
 
-#qr-canvas-wrapper svg {
+.qr-canvas-wrapper svg, #qr-canvas-wrapper svg {
   display: block;
   width: 100% !important;
   height: 100% !important;
@@ -1120,11 +1295,18 @@ body::after {
 
   .stage-canvas-frame {
     width: 340px;
-    height: 340px;
+    min-height: 340px;
+    height: auto;
   }
 
+  .qr-composite-card,
+  .qr-canvas-wrapper,
   #qr-canvas-wrapper {
     width: 300px;
+  }
+
+  .qr-canvas-wrapper,
+  #qr-canvas-wrapper {
     height: 300px;
   }
 

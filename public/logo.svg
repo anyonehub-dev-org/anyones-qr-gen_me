@@ -1,0 +1,240 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="42%" r="65%">
+      <stop offset="0%" stop-color="#141926" />
+      <stop offset="45%" stop-color="#0c0e15" />
+      <stop offset="100%" stop-color="#06070a" />
+    </radialGradient>
+
+    <!-- Ring Gradients -->
+    <linearGradient id="purpleRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="50%" stop-color="#9d4edd" />
+      <stop offset="100%" stop-color="#7928ca" />
+    </linearGradient>
+
+    <linearGradient id="tealRingGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="60%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#3877ff" />
+    </linearGradient>
+
+    <!-- 3D Hand Gradient -->
+    <linearGradient id="handGrad" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#083344" />
+      <stop offset="35%" stop-color="#0e7490" />
+      <stop offset="70%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#22d3ee" />
+    </linearGradient>
+
+    <linearGradient id="handHighlight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#67e8f9" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.2" />
+    </linearGradient>
+
+    <!-- QR Node Gradients -->
+    <linearGradient id="cyanNode" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="purpleNode" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d8b4fe" />
+      <stop offset="100%" stop-color="#9333ea" />
+    </linearGradient>
+    <linearGradient id="blueNode" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+
+    <!-- Glow Filters -->
+    <filter id="ringGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <filter id="handShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000000" flood-opacity="0.75" />
+    </filter>
+
+    <filter id="qrShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+
+    <!-- Grid Pattern -->
+    <pattern id="microGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(255,255,255,0.025)" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="800" height="800" rx="36" fill="url(#bgGrad)" />
+  <rect width="800" height="800" rx="36" fill="url(#microGrid)" />
+  <rect width="800" height="800" rx="36" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1.5" />
+
+  <!-- Ambient Light Blobs -->
+  <circle cx="400" cy="280" r="220" fill="#9d4edd" opacity="0.08" filter="blur(50px)" />
+  <circle cx="400" cy="380" r="200" fill="#00f2fe" opacity="0.07" filter="blur(50px)" />
+
+  <!-- ===================================================================
+       THE 3D TORUS RING (Outer Ring)
+       =================================================================== -->
+  <g filter="url(#ringGlow)">
+    <!-- Base Deep Shadow Ring -->
+    <circle cx="400" cy="310" r="216" fill="none" stroke="#000000" stroke-width="32" opacity="0.45" />
+
+    <!-- Teal / Cyan Lower Arc (from ~-10deg to 190deg) -->
+    <path d="M 184 310 A 216 216 0 0 0 616 310" fill="none" stroke="url(#tealRingGrad)" stroke-width="26" stroke-linecap="round" />
+
+    <!-- Purple Upper Arc (Left Segment) -->
+    <path d="M 184 310 A 216 216 0 0 1 382 95" fill="none" stroke="url(#purpleRingGrad)" stroke-width="26" stroke-linecap="round" />
+
+    <!-- Purple Upper Arc (Right Segment, leaving gap at top 12 o'clock) -->
+    <path d="M 418 95 A 216 216 0 0 1 616 310" fill="none" stroke="url(#purpleRingGrad)" stroke-width="26" stroke-linecap="round" />
+
+    <!-- Specular Highlight Overlays on Ring -->
+    <path d="M 200 240 A 216 216 0 0 1 370 102" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.4" />
+    <path d="M 230 430 A 216 216 0 0 0 570 430" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" opacity="0.5" />
+  </g>
+
+  <!-- ===================================================================
+       CENTRAL QR CODE PLATFORM
+       =================================================================== -->
+  <g filter="url(#qrShadow)">
+    <!-- Dark Backing Grid Slate -->
+    <rect x="274" y="184" width="252" height="252" rx="14" fill="#0b0e17" stroke="rgba(0,242,254,0.3)" stroke-width="1.5" />
+    
+    <!-- Subtle Grid Overlay -->
+    <path d="M 337 184 V 436 M 400 184 V 436 M 463 184 V 436 M 274 247 H 526 M 274 310 H 526 M 274 373 H 526" stroke="rgba(255,255,255,0.04)" stroke-width="1" />
+
+    <!-- Top-Left Finder Eye -->
+    <rect x="290" y="200" width="58" height="58" rx="8" fill="none" stroke="#00f2fe" stroke-width="7" />
+    <rect x="304" y="214" width="30" height="30" rx="4" fill="#3877ff" />
+    <rect x="309" y="219" width="20" height="20" rx="3" fill="#00f2fe" />
+
+    <!-- Top-Right Finder Eye -->
+    <rect x="452" y="200" width="58" height="58" rx="8" fill="none" stroke="#c084fc" stroke-width="7" />
+    <rect x="466" y="214" width="30" height="30" rx="4" fill="#9d4edd" />
+    <rect x="471" y="219" width="20" height="20" rx="3" fill="#e9d5ff" />
+
+    <!-- Bottom-Left Finder Eye -->
+    <rect x="290" y="362" width="58" height="58" rx="8" fill="none" stroke="#00f2fe" stroke-width="7" />
+    <rect x="304" y="376" width="30" height="30" rx="4" fill="#0284c7" />
+    <rect x="309" y="381" width="20" height="20" rx="3" fill="#38bdf8" />
+
+    <!-- Stylized QR Pixels (Nodules) -->
+    <!-- Column 1 -->
+    <rect x="362" y="202" width="16" height="16" rx="4" fill="url(#cyanNode)" />
+    <rect x="388" y="202" width="16" height="30" rx="4" fill="url(#purpleNode)" />
+    <rect x="418" y="202" width="16" height="16" rx="4" fill="url(#blueNode)" />
+
+    <!-- Column 2 -->
+    <rect x="362" y="232" width="30" height="16" rx="4" fill="url(#blueNode)" />
+    <rect x="418" y="232" width="16" height="16" rx="4" fill="url(#cyanNode)" />
+
+    <!-- Column 3 (Center) -->
+    <rect x="290" y="274" width="16" height="16" rx="4" fill="url(#purpleNode)" />
+    <rect x="318" y="274" width="16" height="30" rx="4" fill="url(#cyanNode)" />
+    <rect x="350" y="260" width="16" height="16" rx="4" fill="url(#cyanNode)" />
+    <rect x="376" y="260" width="28" height="28" rx="5" fill="url(#purpleNode)" />
+    <rect x="418" y="260" width="16" height="16" rx="4" fill="url(#blueNode)" />
+    <rect x="452" y="274" width="16" height="16" rx="4" fill="url(#cyanNode)" />
+    <rect x="480" y="274" width="30" height="16" rx="4" fill="url(#purpleNode)" />
+
+    <!-- Column 4 -->
+    <rect x="290" y="318" width="30" height="16" rx="4" fill="url(#blueNode)" />
+    <rect x="336" y="304" width="16" height="28" rx="4" fill="url(#purpleNode)" />
+    <rect x="366" y="304" width="16" height="16" rx="4" fill="url(#cyanNode)" />
+    <rect x="396" y="300" width="26" height="26" rx="5" fill="url(#cyanNode)" />
+    <rect x="436" y="300" width="16" height="32" rx="4" fill="url(#purpleNode)" />
+    <rect x="466" y="304" width="24" height="16" rx="4" fill="url(#blueNode)" />
+    <rect x="502" y="304" width="10" height="28" rx="3" fill="url(#cyanNode)" />
+
+    <!-- Column 5 -->
+    <rect x="362" y="336" width="32" height="16" rx="4" fill="url(#purpleNode)" />
+    <rect x="408" y="340" width="16" height="28" rx="4" fill="url(#cyanNode)" />
+    <rect x="436" y="348" width="28" height="16" rx="4" fill="url(#blueNode)" />
+    <rect x="478" y="348" width="16" height="16" rx="4" fill="url(#cyanNode)" />
+    <rect x="502" y="348" width="10" height="16" rx="3" fill="url(#purpleNode)" />
+
+    <!-- Bottom Center Nodules -->
+    <rect x="362" y="372" width="16" height="26" rx="4" fill="url(#blueNode)" />
+    <rect x="388" y="380" width="24" height="16" rx="4" fill="url(#purpleNode)" />
+    <rect x="424" y="380" width="16" height="16" rx="4" fill="url(#cyanNode)" />
+    <rect x="452" y="378" width="36" height="18" rx="4" fill="url(#purpleNode)" />
+    <rect x="500" y="378" width="12" height="28" rx="3" fill="url(#cyanNode)" />
+
+    <!-- Scan Glow Center -->
+    <circle cx="390" cy="274" r="6" fill="#ffffff" opacity="0.8" />
+    <circle cx="410" cy="312" r="5" fill="#ffffff" opacity="0.7" />
+  </g>
+
+  <!-- ===================================================================
+       THE STYLIZED CUPPING HAND (3D Ergonomic Silhouette)
+       =================================================================== -->
+  <g filter="url(#handShadow)">
+    <!-- Base Palm & Arm sweep from lower left up towards right -->
+    <path d="M 230 435 
+             C 270 485, 340 545, 435 545 
+             C 505 545, 555 510, 580 475 
+             C 560 488, 520 500, 470 495 
+             C 420 490, 370 460, 310 440 
+             Z" 
+          fill="#062e3d" />
+
+    <!-- Main Supporting Hand Silhouette with thumb and gentle cupping contour -->
+    <path d="M 215 410 
+             C 240 450, 275 490, 345 520 
+             C 410 545, 480 540, 525 510 
+             C 555 490, 565 470, 545 468 
+             C 525 466, 490 480, 440 485 
+             C 385 490, 340 472, 315 455
+             C 345 455, 400 465, 455 460
+             C 490 457, 520 445, 535 440
+             C 545 437, 540 430, 525 430
+             C 495 430, 455 435, 410 435
+             C 350 435, 305 420, 260 395
+             C 245 385, 230 380, 222 390
+             C 216 397, 212 404, 215 410
+             Z" 
+          fill="url(#handGrad)" />
+
+    <!-- Upper Finger Crescent Detail Cupping Base of QR -->
+    <path d="M 270 415 
+             C 320 445, 390 455, 465 450 
+             C 505 447, 535 435, 542 432 
+             C 530 440, 490 455, 450 458 
+             C 385 462, 325 452, 280 425 
+             Z" 
+          fill="#22d3ee" opacity="0.85" />
+
+    <!-- Specular Highlight Glint on Wrist Curve -->
+    <path d="M 245 440 C 295 485, 360 520, 440 530" fill="none" stroke="url(#handHighlight)" stroke-width="4" stroke-linecap="round" />
+  </g>
+
+  <!-- ===================================================================
+       TYPOGRAPHY LOCKUP (Brand Title & Subtitle)
+       =================================================================== -->
+  <g text-anchor="middle">
+    <!-- Brand Title: anyones-QR gen -->
+    <text x="400" y="640" 
+          fill="#ffffff" 
+          font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" 
+          font-size="54" 
+          font-weight="800" 
+          letter-spacing="-1.2px">
+      anyones-QR gen
+    </text>
+
+    <!-- Subtitle: Truly Free | Open | Customizable QR Codes -->
+    <text x="400" y="694" 
+          fill="#00f2fe" 
+          font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" 
+          font-size="22" 
+          font-weight="500" 
+          letter-spacing="1px"
+          opacity="0.95">
+      Truly Free | Open | Customizable QR Codes
+    </text>
+  </g>
+</svg>
