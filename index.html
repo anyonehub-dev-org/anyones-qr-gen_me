@@ -3,19 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>anyone's QR gen — 100% Free &amp; Private Client-Side QR Generator</title>
-    <meta name="description" content="100% client-side, free custom QR code generator for anyone's-QR_gen.me. Zero tracking, instant reactive preview, custom logos, and high-res export." />
-    <meta property="og:title" content="anyone's QR gen — 100% Free &amp; Private Client-Side QR Generator" />
-    <meta property="og:description" content="Free, private, 100% client-side QR code generator. Zero paywalls, zero ads, zero data tracking." />
+    <title>anyone's QR gen — Free QR Code &amp; Digital Business Card Builder</title>
+    <meta name="description" content="100% client-side, zero-database QR code generator and digital business card builder for anyone's-QR_gen.me. Zero tracking, serverless single-file HTML export." />
+    <meta property="og:title" content="anyone's QR gen — QR Code &amp; Digital Profile Builder" />
+    <meta property="og:description" content="Free, private, 100% client-side QR code generator and digital business card builder. Zero paywalls, zero ads, zero tracking." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Google Fonts for High-End Developer Aesthetic -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@500;600;700&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
 
-    <!-- Core Compilation Framework via unpkg -->
+    <!-- QR Code Styling Library -->
     <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
 
     <!-- App Stylesheet -->
@@ -23,8 +23,8 @@
   </head>
   <body>
     <div class="app-wrapper">
-      <!-- Left Panel: The Control Console (45% Width) -->
-      <aside class="control-console" aria-label="QR Code Generator Controls">
+      <!-- Left Panel: Control Console (45% Width) -->
+      <aside class="control-console" aria-label="Generator and Builder Controls">
         <!-- App Header & Brand -->
         <header class="app-header">
           <div class="brand-row">
@@ -38,370 +38,651 @@
             </div>
           </div>
           <p class="subheadline">
-            Zero tracking. Zero subscriptions. Every byte generated locally in your browser memory—no server round-trips, ever. Link creation is completely unlimited.
+            Zero tracking. Zero database. Every byte generated locally in browser memory—ready for free instant Netlify or GitHub hosting.
           </p>
         </header>
 
-        <!-- Section 1: Content Input -->
-        <section class="console-card" aria-labelledby="section-content-title">
-          <div class="card-header">
-            <div class="card-title-group">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-              <h2 id="section-content-title" class="card-title">Content Payload</h2>
-            </div>
-            <div class="quick-protocols" role="toolbar" aria-label="Preset Protocol Fillers">
-              <button type="button" class="protocol-chip" data-prefix="https://" title="Add https:// prefix">https://</button>
-              <button type="button" class="protocol-chip" data-prefix="mailto:" title="Add mailto: prefix">mailto:</button>
-              <button type="button" class="protocol-chip" data-prefix="WIFI:T:WPA;S:MyNetwork;P:password;;" title="Fill Wi-Fi setup string">WIFI:</button>
-              <button type="button" class="protocol-chip" data-prefix="tel:" title="Add phone call prefix">tel:</button>
-            </div>
-          </div>
-
-          <div class="input-field-wrapper">
-            <label for="qr-data-input" class="visually-hidden" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">Content or Destination URL</label>
-            <div style="position: relative;">
-              <textarea
-                id="qr-data-input"
-                class="text-input-field"
-                rows="3"
-                placeholder="Enter destination URL, website, Wi-Fi credentials, or plain text..."
-                spellcheck="false"
-                aria-describedby="char-count-info"
-              >https://your-website-url.com</textarea>
-              <button type="button" id="btn-clear-payload" class="btn-input-clear" style="position: absolute; top: 10px; right: 10px;" title="Clear payload text" aria-label="Clear payload text">✕</button>
-            </div>
-            <div class="input-footer" id="char-count-info">
-              <span class="char-counter"><span id="char-count">27</span> characters</span>
-              <div style="display: flex; align-items: center; gap: 0.5rem;">
-                <label for="ecc-select" style="color: var(--text-muted);">Redundancy:</label>
-                <select id="ecc-select" class="select-input" aria-label="Error Correction Level">
-                  <option value="L">L · Low (7%)</option>
-                  <option value="M">M · Medium (15%)</option>
-                  <option value="Q">Q · Quartile (25%)</option>
-                  <option value="H" selected>H · High (30%)</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Section 2: Color Matrix Options -->
-        <section class="console-card" aria-labelledby="section-color-title">
-          <div class="card-header">
-            <div class="card-title-group">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
-              <h2 id="section-color-title" class="card-title">Color Matrix</h2>
-            </div>
-            <div id="contrast-status" class="contrast-pill" title="Calculated scan contrast ratio">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              <span>Scan Safe (15.2:1)</span>
-            </div>
-          </div>
-
-          <div class="color-matrix-grid">
-            <!-- Foreground / Pattern (Dots) -->
-            <div class="color-channel-unit">
-              <label for="color-dots-hex" class="color-channel-label">Pattern (Foreground)</label>
-              <div class="color-picker-composite">
-                <input type="color" id="color-dots-picker" class="native-color-picker" value="#00F2FE" title="Pick pattern color" aria-label="Foreground color picker" />
-                <input type="text" id="color-dots-hex" class="color-hex-text" value="#00F2FE" maxlength="7" spellcheck="false" aria-label="Foreground color hex code" />
-              </div>
-            </div>
-
-            <!-- Backdrop (Background Canvas) -->
-            <div class="color-channel-unit">
-              <label for="color-bg-hex" class="color-channel-label">Backdrop (Canvas)</label>
-              <div class="color-picker-composite">
-                <input type="color" id="color-bg-picker" class="native-color-picker" value="#08090E" title="Pick backdrop color" aria-label="Backdrop color picker" />
-                <input type="text" id="color-bg-hex" class="color-hex-text" value="#08090E" maxlength="7" spellcheck="false" aria-label="Backdrop color hex code" />
-              </div>
-            </div>
-          </div>
-
-          <!-- Color Matrix Presets -->
-          <div class="color-meta-row">
-            <span class="palette-presets-label">Dev Palettes:</span>
-            <div class="preset-bubbles" role="group" aria-label="Developer Color Presets">
-              <button type="button" class="preset-swatch active" data-fg="#00F2FE" data-bg="#08090E" title="Electric Teal on Obsidian Midnight" style="background: linear-gradient(135deg, #00F2FE 50%, #08090E 50%);" aria-label="Electric Teal preset"></button>
-              <button type="button" class="preset-swatch" data-fg="#9D4EDD" data-bg="#08090E" title="Neon Purple on Obsidian Midnight" style="background: linear-gradient(135deg, #9D4EDD 50%, #08090E 50%);" aria-label="Neon Purple preset"></button>
-              <button type="button" class="preset-swatch" data-fg="#3877FF" data-bg="#0B0E17" title="Electric Azure on Midnight Navy" style="background: linear-gradient(135deg, #3877FF 50%, #0B0E17 50%);" aria-label="Electric Azure preset"></button>
-              <button type="button" class="preset-swatch" data-fg="#14F1D9" data-bg="#120E22" title="Turquoise on Deep Indigo" style="background: linear-gradient(135deg, #14F1D9 50%, #120E22 50%);" aria-label="Turquoise on Indigo preset"></button>
-              <button type="button" class="preset-swatch" data-fg="#000000" data-bg="#FFFFFF" title="High Contrast Print (Black on White)" style="background: linear-gradient(135deg, #000000 50%, #FFFFFF 50%);" aria-label="Black on White preset"></button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Section 3: Structural Layout Templates -->
-        <section class="console-card" aria-labelledby="section-geometry-title">
-          <div class="card-header">
-            <div class="card-title-group">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
-              <h2 id="section-geometry-title" class="card-title">Structural Layout Templates</h2>
-            </div>
-          </div>
-
-          <!-- Dot Style Cards -->
-          <div class="geometry-selector-grid" role="radiogroup" aria-label="QR Pattern Style">
-            <!-- Classic Square -->
-            <div class="geometry-option-card" data-dot-style="square" role="radio" aria-checked="false" tabindex="0">
-              <div class="geometry-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-              </div>
-              <span class="geometry-label">Classic Square</span>
-            </div>
-
-            <!-- Rounded Nodes -->
-            <div class="geometry-option-card active" data-dot-style="rounded" role="radio" aria-checked="true" tabindex="0">
-              <div class="geometry-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="2.5"/><rect x="14" y="3" width="7" height="7" rx="2.5"/><rect x="3" y="14" width="7" height="7" rx="2.5"/><rect x="14" y="14" width="7" height="7" rx="2.5"/></svg>
-              </div>
-              <span class="geometry-label">Rounded Nodes</span>
-            </div>
-
-            <!-- Fluid Spheres -->
-            <div class="geometry-option-card" data-dot-style="dots" role="radio" aria-checked="false" tabindex="0">
-              <div class="geometry-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.5" cy="6.5" r="3.5"/><circle cx="17.5" cy="6.5" r="3.5"/><circle cx="6.5" cy="17.5" r="3.5"/><circle cx="17.5" cy="17.5" r="3.5"/></svg>
-              </div>
-              <span class="geometry-label">Fluid Spheres</span>
-            </div>
-
-            <!-- Grounded Blocks -->
-            <div class="geometry-option-card" data-dot-style="classy" role="radio" aria-checked="false" tabindex="0">
-              <div class="geometry-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h7v7H3V3zm11 0h7v7h-7V3zm-11 11h7v7H3v-7zm11 0h7v7h-7v-7z" rx="1"/></svg>
-              </div>
-              <span class="geometry-label">Grounded Blocks</span>
-            </div>
-          </div>
-
-          <!-- Corner Geometries -->
-          <div class="corner-options-row">
-            <div class="corner-control-group">
-              <span class="corner-control-label">Corner Square (Outer):</span>
-              <div class="corner-button-group" role="group" aria-label="Corner Square Outer Style">
-                <button type="button" class="corner-button" data-corner-square="square">Sharp</button>
-                <button type="button" class="corner-button active" data-corner-square="extra-rounded">Curved</button>
-                <button type="button" class="corner-button" data-corner-square="dot">Spherical</button>
-              </div>
-            </div>
-
-            <div class="corner-control-group">
-              <span class="corner-control-label">Corner Dot (Inner):</span>
-              <div class="corner-button-group" role="group" aria-label="Corner Dot Inner Style">
-                <button type="button" class="corner-button" data-corner-dot="square">Square</button>
-                <button type="button" class="corner-button active" data-corner-dot="dot">Circle</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Section 4: Brand / Company Identifier & Typography (New Customization) -->
-        <section class="console-card" aria-labelledby="section-brand-title">
-          <div class="card-header">
-            <div class="card-title-group">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-              <h2 id="section-brand-title" class="card-title">Brand / Company Identifier</h2>
-            </div>
-            <div class="brand-placement-tag" id="brand-placement-status">
-              <span>Top Header</span>
-            </div>
-          </div>
-
-          <!-- Company / Chosen Name Text Input -->
-          <div class="input-field-wrapper">
-            <label for="brand-name-input" class="color-channel-label" style="display: flex; justify-content: space-between;">
-              <span>Company or Chosen Label</span>
-              <span style="font-size: 0.68rem; color: var(--text-muted);">Optional Header/Footer</span>
-            </label>
-            <div style="position: relative; display: flex; align-items: center;">
-              <input
-                type="text"
-                id="brand-name-input"
-                class="brand-text-field"
-                placeholder="Enter company name, brand title, or custom label..."
-                value="YOUR COMPANY NAME"
-                maxlength="60"
-                spellcheck="false"
-                aria-label="Company or chosen name for QR code banner"
-              />
-              <button type="button" id="btn-clear-brand" class="btn-input-clear" title="Clear text" aria-label="Clear brand label">✕</button>
-            </div>
-          </div>
-
-          <!-- Placement: Top, Bottom, or None -->
-          <div class="corner-control-group">
-            <span class="corner-control-label">Position Alignment:</span>
-            <div class="placement-button-group" role="radiogroup" aria-label="Brand Label Placement">
-              <button type="button" class="placement-button active" data-brand-pos="top" role="radio" aria-checked="true">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
-                Top Header
-              </button>
-              <button type="button" class="placement-button" data-brand-pos="bottom" role="radio" aria-checked="false">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-                Bottom Footer
-              </button>
-              <button type="button" class="placement-button" data-brand-pos="none" role="radio" aria-checked="false">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                None
-              </button>
-            </div>
-          </div>
-
-          <!-- Typography Type & Color Matrix -->
-          <div class="brand-typography-grid">
-            <!-- Font Family Selector -->
-            <div class="color-channel-unit">
-              <label for="brand-font-select" class="color-channel-label">Font Type / Style</label>
-              <select id="brand-font-select" class="brand-font-dropdown" aria-label="Select Typography Font Type">
-                <option value="'JetBrains Mono', monospace" selected>Tech Mono (JetBrains Mono)</option>
-                <option value="'Plus Jakarta Sans', sans-serif">Modern Sans (Plus Jakarta)</option>
-                <option value="'Space Grotesk', sans-serif">Cyber Display (Space Grotesk)</option>
-                <option value="'Outfit', sans-serif">Geometric (Outfit)</option>
-                <option value="'Playfair Display', serif">Luxury Serif (Playfair)</option>
-                <option value="'Cinzel', serif">Classical Roman (Cinzel)</option>
-                <option value="Impact, sans-serif">Heavy Impact (Bold)</option>
-              </select>
-            </div>
-
-            <!-- Font Color Picker -->
-            <div class="color-channel-unit">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <label for="brand-color-hex" class="color-channel-label">Font Color</label>
-                <button type="button" id="btn-sync-brand-color" class="btn-sync-color" title="Match QR code pattern color">Sync Pattern</button>
-              </div>
-              <div class="color-picker-composite">
-                <input type="color" id="brand-color-picker" class="native-color-picker" value="#00F2FE" title="Pick label font color" aria-label="Label font color picker" />
-                <input type="text" id="brand-color-hex" class="color-hex-text" value="#00F2FE" maxlength="7" spellcheck="false" aria-label="Label font color hex" />
-              </div>
-            </div>
-          </div>
-
-          <!-- Font Size Slider & Uppercase Modifier -->
-          <div class="logo-tuning-row" style="display: grid; padding-top: 0.25rem;">
-            <div class="slider-group">
-              <div class="slider-label">
-                <span>Font Size:</span>
-                <span id="brand-size-val">15px</span>
-              </div>
-              <input type="range" id="brand-size-slider" class="slider-input" min="11" max="24" step="1" value="15" aria-label="Label font size in pixels" />
-            </div>
-            <div class="slider-group">
-              <div class="slider-label">
-                <span>Letter Tracking:</span>
-                <span id="brand-spacing-val">2.5px</span>
-              </div>
-              <input type="range" id="brand-spacing-slider" class="slider-input" min="0" max="6" step="0.5" value="2.5" aria-label="Label letter spacing" />
-            </div>
-          </div>
-        </section>
-
-        <!-- Section 5: Asset Logo Integration -->
-        <section class="console-card" aria-labelledby="section-logo-title">
-          <div class="card-header">
-            <div class="card-title-group">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-              <h2 id="section-logo-title" class="card-title">Asset Logo Integration</h2>
-            </div>
-            <div class="logo-security-note" title="Background dots are automatically masked out behind the logo to prevent scanning conflicts">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span>Dots Masked (Safe Scan)</span>
-            </div>
-          </div>
-
-          <!-- Drag and Drop Zone -->
-          <div style="margin-bottom: 0.75rem;">
-            <button type="button" id="btn-use-custom-logo" class="btn-use-brand-logo" title="Embed official anyones-QR gen custom logo into the center of your QR code">
-              <img src="/custom-logo-icon.svg" width="18" height="18" alt="" aria-hidden="true" />
-              <span>Use Official anyones-QR gen Logo as Center Icon</span>
-            </button>
-          </div>
-
-          <div id="logo-dropzone" class="logo-dropzone" tabindex="0" role="button" aria-label="Upload custom center logo">
-            <svg class="logo-dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            <div class="logo-dropzone-title">Drag &amp; drop central brand logo here</div>
-            <div class="logo-dropzone-hint">or click to browse local SVG, PNG, WebP (computed via FileReader)</div>
-            <input type="file" id="logo-file-input" class="hidden-file-input" accept="image/png, image/jpeg, image/svg+xml, image/webp" />
-          </div>
-
-          <!-- Active Logo Injected State -->
-          <div id="logo-active-preview" class="logo-active-preview">
-            <div class="logo-preview-left">
-              <img id="logo-thumbnail-img" class="logo-thumbnail" alt="Selected logo thumbnail" src="" />
-              <div>
-                <div id="logo-file-name" class="logo-name-display">logo.png</div>
-                <div id="logo-file-size" class="logo-size-tag">Client Base64 Encoded</div>
-              </div>
-            </div>
-            <button type="button" id="btn-remove-logo" class="btn-remove-logo">✕ Remove</button>
-          </div>
-
-          <!-- Sliders for Logo Size & Margin -->
-          <div id="logo-tuning-row" class="logo-tuning-row">
-            <div class="slider-group">
-              <div class="slider-label">
-                <span>Logo Scale:</span>
-                <span id="logo-size-val">28%</span>
-              </div>
-              <input type="range" id="logo-size-slider" class="slider-input" min="0.15" max="0.38" step="0.01" value="0.28" aria-label="Logo size scale" />
-            </div>
-            <div class="slider-group">
-              <div class="slider-label">
-                <span>Margin Padding:</span>
-                <span id="logo-margin-val">4px</span>
-              </div>
-              <input type="range" id="logo-margin-slider" class="slider-input" min="0" max="16" step="1" value="4" aria-label="Logo padding margin" />
-            </div>
-          </div>
-        </section>
-
-        <!-- Primary Action Triggers -->
-        <div class="action-trigger-cluster">
-          <button type="button" id="btn-download-png" class="btn-primary-action" title="Download ultra high-definition PNG format">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span>Download High-Res PNG</span>
+        <!-- Global Navigation Splitter: Tab 1 (QR Code Engine) & Tab 2 (Profile Builder) -->
+        <nav class="global-nav-splitter" role="tablist" aria-label="Workspace Engine Switcher">
+          <button type="button" id="tab-nav-qr" class="nav-tab-btn active" role="tab" aria-selected="true" aria-controls="panel-qr-engine">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7h.01M7 12h.01M7 17h.01M12 7h.01M12 12h.01M12 17h.01M17 7h.01M17 12h.01M17 17h.01"/></svg>
+            <span>QR Code Engine</span>
           </button>
+          <button type="button" id="tab-nav-profile" class="nav-tab-btn" role="tab" aria-selected="false" aria-controls="panel-profile-builder">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Profile Builder</span>
+            <span class="nav-tab-badge">New</span>
+          </button>
+        </nav>
 
-          <div class="btn-secondary-cluster">
-            <button type="button" id="btn-download-svg" class="btn-secondary" title="Download infinite resolution vector SVG">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-              Vector SVG
+        <!-- ================================================================= -->
+        <!-- ENGINE PANEL 1: QR CODE ENGINE CONTROLS -->
+        <!-- ================================================================= -->
+        <div id="panel-qr-engine" class="engine-panel active">
+          <!-- Section 1: Content Input -->
+          <section class="console-card" aria-labelledby="section-content-title">
+            <div class="card-header">
+              <div class="card-title-group">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                <h2 id="section-content-title" class="card-title">Content Payload</h2>
+              </div>
+              <div class="quick-protocols" role="toolbar" aria-label="Preset Protocol Fillers">
+                <button type="button" class="protocol-chip" data-prefix="https://" title="Add https:// prefix">https://</button>
+                <button type="button" class="protocol-chip" data-prefix="mailto:" title="Add mailto: prefix">mailto:</button>
+                <button type="button" class="protocol-chip" data-prefix="WIFI:T:WPA;S:MyNetwork;P:password;;" title="Fill Wi-Fi setup string">WIFI:</button>
+                <button type="button" class="protocol-chip" data-prefix="tel:" title="Add phone call prefix">tel:</button>
+              </div>
+            </div>
+
+            <div class="input-field-wrapper">
+              <label for="qr-data-input" class="visually-hidden">Content or Destination URL</label>
+              <div style="position: relative;">
+                <textarea
+                  id="qr-data-input"
+                  class="text-input-field"
+                  rows="3"
+                  placeholder="Enter destination URL, website, Wi-Fi credentials, or plain text..."
+                  spellcheck="false"
+                  aria-describedby="char-count-info"
+                >https://your-website-url.com</textarea>
+                <button type="button" id="btn-clear-payload" class="btn-input-clear" style="position: absolute; top: 10px; right: 10px;" title="Clear payload text" aria-label="Clear payload text">✕</button>
+              </div>
+              <div class="input-footer" id="char-count-info">
+                <span class="char-counter"><span id="char-count">27</span> characters</span>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <label for="ecc-select" class="ecc-select-label">Error Correction:</label>
+                  <select id="ecc-select" class="ecc-select-dropdown" aria-label="Error Correction Level">
+                    <option value="L">L (7%) - Low Density</option>
+                    <option value="M">M (15%) - Standard</option>
+                    <option value="Q">Q (25%) - High Integrity</option>
+                    <option value="H" selected>H (30%) - Logo Grade</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 2: Color Palette Matrix -->
+          <section class="console-card" aria-labelledby="section-colors-title">
+            <div class="card-header">
+              <div class="card-title-group">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+                <h2 id="section-colors-title" class="card-title">Color Matrix</h2>
+              </div>
+              <div id="contrast-status" class="contrast-badge pass" title="Calculated live color contrast compliance">
+                <span class="contrast-dot"></span>
+                <span class="contrast-label">Contrast: Optimal</span>
+              </div>
+            </div>
+
+            <div class="color-control-grid">
+              <div class="color-picker-cell">
+                <label for="color-dots-picker" class="field-label">Dots &amp; Eyes</label>
+                <div class="picker-input-container">
+                  <input type="color" id="color-dots-picker" class="color-swatch-input" value="#00F2FE" aria-label="Foreground QR Color" />
+                  <input type="text" id="color-dots-hex" class="hex-text-input" value="#00F2FE" maxlength="7" spellcheck="false" aria-label="Foreground Hex Code" />
+                </div>
+              </div>
+
+              <div class="color-picker-cell">
+                <label for="color-bg-picker" class="field-label">Background</label>
+                <div class="picker-input-container">
+                  <input type="color" id="color-bg-picker" class="color-swatch-input" value="#08090E" aria-label="Background Color" />
+                  <input type="text" id="color-bg-hex" class="hex-text-input" value="#08090E" maxlength="7" spellcheck="false" aria-label="Background Hex Code" />
+                </div>
+              </div>
+            </div>
+
+            <div class="preset-palette-row" role="radiogroup" aria-label="Designer Color Presets">
+              <button type="button" class="preset-swatch active" data-fg="#00F2FE" data-bg="#08090E" title="Electric Cyber" style="--swatch-fg: #00F2FE; --swatch-bg: #08090E;" aria-label="Electric Cyber Preset"></button>
+              <button type="button" class="preset-swatch" data-fg="#A855F7" data-bg="#090614" title="Neon Velvet" style="--swatch-fg: #A855F7; --swatch-bg: #090614;" aria-label="Neon Velvet Preset"></button>
+              <button type="button" class="preset-swatch" data-fg="#10B981" data-bg="#06120E" title="Emerald Matrix" style="--swatch-fg: #10B981; --swatch-bg: #06120E;" aria-label="Emerald Matrix Preset"></button>
+              <button type="button" class="preset-swatch" data-fg="#F59E0B" data-bg="#120A04" title="Solar Amber" style="--swatch-fg: #F59E0B; --swatch-bg: #120A04;" aria-label="Solar Amber Preset"></button>
+              <button type="button" class="preset-swatch" data-fg="#000000" data-bg="#FFFFFF" title="Paper High-Contrast" style="--swatch-fg: #000000; --swatch-bg: #FFFFFF;" aria-label="Black and White Preset"></button>
+              <button type="button" class="preset-swatch" data-fg="#FFFFFF" data-bg="#0B0D13" title="Starlight Monochrome" style="--swatch-fg: #FFFFFF; --swatch-bg: #0B0D13;" aria-label="White on Obsidian Preset"></button>
+            </div>
+          </section>
+
+          <!-- Section 3: Geometry & Module Styling -->
+          <section class="console-card" aria-labelledby="section-geometry-title">
+            <div class="card-header">
+              <div class="card-title-group">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>
+                <h2 id="section-geometry-title" class="card-title">Shape Geometry</h2>
+              </div>
+            </div>
+
+            <div class="geometry-selector-grid" role="radiogroup" aria-label="Pattern Styles">
+              <button type="button" class="geometry-option-card active" data-style="rounded" aria-label="Rounded Dot Pattern">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>Smooth</span>
+              </button>
+              <button type="button" class="geometry-option-card" data-style="dots" aria-label="Circular Dot Pattern">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><circle cx="12" cy="12" r="2.5"/></svg>
+                <span>Circular</span>
+              </button>
+              <button type="button" class="geometry-option-card" data-style="classy-rounded" aria-label="Fluid Curved Pattern">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+                <span>Fluid</span>
+              </button>
+              <button type="button" class="geometry-option-card" data-style="square" aria-label="Classic Square Matrix Pattern">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></svg>
+                <span>Square</span>
+              </button>
+            </div>
+
+            <!-- Corner Finder Eyes Customizer -->
+            <div class="corner-customizer-cluster">
+              <div class="corner-subgroup">
+                <span class="corner-sublabel">Corner Frame:</span>
+                <div class="corner-pill-toggle" role="radiogroup" aria-label="Corner Square Shapes">
+                  <button type="button" class="corner-btn active" data-corner-square="extra-rounded">Extra Round</button>
+                  <button type="button" class="corner-btn" data-corner-square="dot">Circle</button>
+                  <button type="button" class="corner-btn" data-corner-square="square">Square</button>
+                </div>
+              </div>
+              <div class="corner-subgroup">
+                <span class="corner-sublabel">Center Eye Dot:</span>
+                <div class="corner-pill-toggle" role="radiogroup" aria-label="Corner Eye Shapes">
+                  <button type="button" class="corner-btn active" data-corner-dot="dot">Circle</button>
+                  <button type="button" class="corner-btn" data-corner-dot="square">Square</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 4: Brand & Company Identifier Tag -->
+          <section class="console-card" aria-labelledby="section-brand-title">
+            <div class="card-header">
+              <div class="card-title-group">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+                <h2 id="section-brand-title" class="card-title">Brand &amp; Chosen Label</h2>
+              </div>
+              <span id="brand-placement-status" class="brand-placement-badge">Position: Top</span>
+            </div>
+
+            <div class="input-field-wrapper">
+              <div style="position: relative;">
+                <input
+                  type="text"
+                  id="brand-name-input"
+                  class="text-input-field single-line"
+                  placeholder="e.g. YOUR COMPANY NAME or SCAN ME"
+                  value="YOUR COMPANY NAME"
+                  maxlength="45"
+                  spellcheck="false"
+                  aria-label="Brand Label Text"
+                />
+                <button type="button" id="btn-clear-brand" class="btn-input-clear" style="position: absolute; top: 10px; right: 10px;" title="Clear company label" aria-label="Clear company label">✕</button>
+              </div>
+
+              <!-- Placement Pill Toggles -->
+              <div class="placement-pill-row" role="radiogroup" aria-label="Brand Label Placement">
+                <button type="button" class="placement-button active" data-position="top">Top Header</button>
+                <button type="button" class="placement-button" data-position="bottom">Bottom Footer</button>
+                <button type="button" class="placement-button" data-position="none">None (Hidden)</button>
+              </div>
+
+              <!-- Font & Color Customization for Brand Label -->
+              <div class="brand-typography-row">
+                <div class="brand-control-cell">
+                  <label for="brand-font-select" class="field-label">Label Font</label>
+                  <select id="brand-font-select" class="brand-font-dropdown" aria-label="Brand Font Family">
+                    <option value="'JetBrains Mono', monospace" selected>JetBrains Mono (Tech/Clean)</option>
+                    <option value="'Space Grotesk', sans-serif">Space Grotesk (Modern Sans)</option>
+                    <option value="'Plus Jakarta Sans', sans-serif">Plus Jakarta Sans (Corporate)</option>
+                    <option value="'Outfit', sans-serif">Outfit (Futuristic Geometric)</option>
+                    <option value="'Playfair Display', serif">Playfair Display (Luxury Editorial)</option>
+                    <option value="'Cinzel', serif">Cinzel (Prestige Classical)</option>
+                  </select>
+                </div>
+
+                <div class="brand-control-cell">
+                  <label for="brand-color-picker" class="field-label">Label Color</label>
+                  <div class="picker-input-container">
+                    <input type="color" id="brand-color-picker" class="color-swatch-input" value="#00F2FE" aria-label="Brand Label Color" />
+                    <input type="text" id="brand-color-hex" class="hex-text-input" value="#00F2FE" maxlength="7" spellcheck="false" aria-label="Brand Color Hex" />
+                    <button type="button" id="btn-sync-brand-color" class="btn-sync-color" title="Sync with QR dot color">Sync</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sliders for Font Size & Letter Spacing -->
+              <div class="brand-tuning-grid">
+                <div class="slider-group">
+                  <div class="slider-label">
+                    <span>Font Size:</span>
+                    <span id="brand-size-val">15px</span>
+                  </div>
+                  <input type="range" id="brand-size-slider" class="slider-input" min="11" max="24" step="1" value="15" aria-label="Brand text font size" />
+                </div>
+                <div class="slider-group">
+                  <div class="slider-label">
+                    <span>Letter Spacing:</span>
+                    <span id="brand-spacing-val">2.5px</span>
+                  </div>
+                  <input type="range" id="brand-spacing-slider" class="slider-input" min="0" max="8" step="0.5" value="2.5" aria-label="Brand text letter spacing" />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 5: Custom Logo Integration -->
+          <section class="console-card" aria-labelledby="section-logo-title">
+            <div class="card-header">
+              <div class="card-title-group">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                <h2 id="section-logo-title" class="card-title">Asset Logo Integration</h2>
+              </div>
+              <div class="logo-security-note" title="Background dots are automatically masked out behind the logo to prevent scanning conflicts">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Dots Masked (Safe Scan)</span>
+              </div>
+            </div>
+
+            <!-- Preset: Embed Official Logo Icon -->
+            <div style="margin-bottom: 0.75rem;">
+              <button type="button" id="btn-use-custom-logo" class="btn-use-brand-logo" title="Embed official anyones-QR gen custom logo into the center of your QR code">
+                <img src="/custom-logo-icon.svg" width="18" height="18" alt="" aria-hidden="true" />
+                <span>Use Official anyones-QR gen Logo as Center Icon</span>
+              </button>
+            </div>
+
+            <!-- Drag and Drop Zone -->
+            <div id="logo-dropzone" class="logo-dropzone" tabindex="0" role="button" aria-label="Upload custom center logo">
+              <svg class="logo-dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <div class="logo-dropzone-title">Drag &amp; drop central brand logo here</div>
+              <div class="logo-dropzone-hint">or click to browse local SVG, PNG, WebP (computed via FileReader)</div>
+              <input type="file" id="logo-file-input" class="hidden-file-input" accept="image/png, image/jpeg, image/svg+xml, image/webp" />
+            </div>
+
+            <!-- Active Logo Injected State -->
+            <div id="logo-active-preview" class="logo-active-preview">
+              <div class="logo-preview-left">
+                <img id="logo-thumbnail-img" class="logo-thumbnail" alt="Selected logo thumbnail" src="" />
+                <div>
+                  <div id="logo-file-name" class="logo-name-display">logo.png</div>
+                  <div id="logo-file-size" class="logo-size-tag">Client Base64 Encoded</div>
+                </div>
+              </div>
+              <button type="button" id="btn-remove-logo" class="btn-remove-logo">✕ Remove</button>
+            </div>
+
+            <!-- Sliders for Logo Size & Margin -->
+            <div id="logo-tuning-row" class="logo-tuning-row">
+              <div class="slider-group">
+                <div class="slider-label">
+                  <span>Logo Scale:</span>
+                  <span id="logo-size-val">28%</span>
+                </div>
+                <input type="range" id="logo-size-slider" class="slider-input" min="0.15" max="0.38" step="0.01" value="0.28" aria-label="Logo size scale" />
+              </div>
+              <div class="slider-group">
+                <div class="slider-label">
+                  <span>Margin Padding:</span>
+                  <span id="logo-margin-val">4px</span>
+                </div>
+                <input type="range" id="logo-margin-slider" class="slider-input" min="0" max="16" step="1" value="4" aria-label="Logo padding margin" />
+              </div>
+            </div>
+          </section>
+
+          <!-- Primary Action Triggers for QR Code -->
+          <div class="action-trigger-cluster">
+            <button type="button" id="btn-download-png" class="btn-primary-action" title="Download ultra high-definition PNG format">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Download High-Res PNG</span>
             </button>
-            <button type="button" id="btn-copy-clipboard" class="btn-secondary" title="Copy rendered PNG image directly to clipboard">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              Copy Image
+
+            <div class="btn-secondary-cluster">
+              <button type="button" id="btn-download-svg" class="btn-secondary" title="Download infinite resolution vector SVG">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                Vector SVG
+              </button>
+              <button type="button" id="btn-copy-clipboard" class="btn-secondary" title="Copy rendered PNG image directly to clipboard">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                Copy Image
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- ENGINE PANEL 2: DIGITAL BUSINESS CARD PROFILE BUILDER -->
+        <!-- ================================================================= -->
+        <div id="panel-profile-builder" class="engine-panel" style="display: none;">
+          <!-- Profile Card 1: Header Details -->
+          <section class="console-card" aria-labelledby="profile-header-title">
+            <div class="card-header">
+              <div class="card-title-group">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <h2 id="profile-header-title" class="card-title">Profile Header Details</h2>
+              </div>
+              <span class="clean-state-pill">Pristine Sandbox</span>
+            </div>
+
+            <div class="profile-input-grid">
+              <div class="input-cell full-width">
+                <label for="prof-fullname" class="field-label">Full Name</label>
+                <div style="position: relative;">
+                  <input type="text" id="prof-fullname" class="text-input-field single-line" placeholder="e.g. Elena Vance, Alex Reed" spellcheck="false" />
+                  <button type="button" id="btn-clear-fullname" class="btn-input-clear" style="position: absolute; top: 10px; right: 10px;" title="Clear name">✕</button>
+                </div>
+              </div>
+
+              <div class="input-cell half-width">
+                <label for="prof-jobtitle" class="field-label">Job Title</label>
+                <input type="text" id="prof-jobtitle" class="text-input-field single-line" placeholder="e.g. Lead Architect, Founder" spellcheck="false" />
+              </div>
+
+              <div class="input-cell half-width">
+                <label for="prof-company" class="field-label">Company / Brand</label>
+                <input type="text" id="prof-company" class="text-input-field single-line" placeholder="e.g. Synthetix Labs, Studio X" spellcheck="false" />
+              </div>
+
+              <div class="input-cell full-width">
+                <label for="prof-location" class="field-label">Location Baseline</label>
+                <input type="text" id="prof-location" class="text-input-field single-line" placeholder="e.g. San Francisco, CA • Remote Worldwide" spellcheck="false" />
+              </div>
+
+              <div class="input-cell full-width">
+                <label for="prof-bio" class="field-label">Short Bio / Tagline</label>
+                <textarea id="prof-bio" class="text-input-field" rows="2" placeholder="e.g. Architecting zero-latency developer utilities &amp; spatial interfaces. Open to high-impact collaborations." spellcheck="false"></textarea>
+              </div>
+
+              <div class="input-cell half-width">
+                <label for="prof-email" class="field-label">Direct Email (vCard)</label>
+                <input type="email" id="prof-email" class="text-input-field single-line" placeholder="name@domain.com" spellcheck="false" />
+              </div>
+
+              <div class="input-cell half-width">
+                <label for="prof-phone" class="field-label">Direct Phone (vCard)</label>
+                <input type="tel" id="prof-phone" class="text-input-field single-line" placeholder="+1 (555) 019-2834" spellcheck="false" />
+              </div>
+            </div>
+          </section>
+
+          <!-- Profile Card 2: Brand Identity Elements (Avatar / Photo Upload) -->
+          <section class="console-card" aria-labelledby="profile-avatar-title">
+            <div class="card-header">
+              <div class="card-title-group">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                <h2 id="profile-avatar-title" class="card-title">Profile Avatar / Logo</h2>
+              </div>
+              <span class="clean-state-pill">1-px Bordered</span>
+            </div>
+
+            <!-- Avatar Dropzone -->
+            <div id="prof-avatar-dropzone" class="logo-dropzone" tabindex="0" role="button" aria-label="Upload profile avatar or headshot">
+              <svg class="logo-dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+              <div class="logo-dropzone-title">Upload Profile Avatar or Headshot</div>
+              <div class="logo-dropzone-hint">Drag &amp; drop PNG, JPG, WebP, SVG (processed into in-memory Base64)</div>
+              <input type="file" id="prof-avatar-input" class="hidden-file-input" accept="image/png, image/jpeg, image/webp, image/svg+xml" />
+            </div>
+
+            <!-- Active Avatar Uploaded Preview -->
+            <div id="prof-avatar-active" class="logo-active-preview">
+              <div class="logo-preview-left">
+                <img id="prof-avatar-thumbnail" class="logo-thumbnail rounded-circle" alt="Profile avatar thumbnail" src="" />
+                <div>
+                  <div id="prof-avatar-filename" class="logo-name-display">avatar.jpg</div>
+                  <div id="prof-avatar-filesize" class="logo-size-tag">Memory Serialized</div>
+                </div>
+              </div>
+              <button type="button" id="btn-remove-avatar" class="btn-remove-logo">✕ Remove</button>
+            </div>
+          </section>
+
+          <!-- Profile Card 3: Dynamic Theme Control -->
+          <section class="console-card" aria-labelledby="profile-theme-title">
+            <div class="card-header">
+              <div class="card-title-group">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a7 7 0 1 0 7 7"/></svg>
+                <h2 id="profile-theme-title" class="card-title">Dynamic Theme &amp; Accent</h2>
+              </div>
+            </div>
+
+            <div class="color-control-grid">
+              <div class="color-picker-cell">
+                <label for="prof-bg-color" class="field-label">Background Base</label>
+                <div class="picker-input-container">
+                  <input type="color" id="prof-bg-color" class="color-swatch-input" value="#090B10" aria-label="Background Base Color" />
+                  <input type="text" id="prof-bg-hex" class="hex-text-input" value="#090B10" maxlength="7" spellcheck="false" />
+                </div>
+              </div>
+
+              <div class="color-picker-cell">
+                <label for="prof-accent-color" class="field-label">Accent Theme Color</label>
+                <div class="picker-input-container">
+                  <input type="color" id="prof-accent-color" class="color-swatch-input" value="#00F2FE" aria-label="Accent Theme Color" />
+                  <input type="text" id="prof-accent-hex" class="hex-text-input" value="#00F2FE" maxlength="7" spellcheck="false" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Theme Presets -->
+            <div class="theme-presets-label">Background Atmosphere Presets:</div>
+            <div class="theme-presets-row" role="radiogroup" aria-label="Theme Gradient Presets">
+              <button type="button" class="theme-preset-chip active" data-bg="#090B10" data-accent="#00F2FE" data-grad="radial">Obsidian Night</button>
+              <button type="button" class="theme-preset-chip" data-bg="#0B0E1A" data-accent="#818CF8" data-grad="mesh">Cyber Indigo</button>
+              <button type="button" class="theme-preset-chip" data-bg="#06120E" data-accent="#10B981" data-grad="emerald">Deep Emerald</button>
+              <button type="button" class="theme-preset-chip" data-bg="#140A10" data-accent="#F43F5E" data-grad="rose">Velvet Rose</button>
+              <button type="button" class="theme-preset-chip" data-bg="#0A0F1D" data-accent="#38BDF8" data-grad="aurora">Midnight Aurora</button>
+            </div>
+          </section>
+
+          <!-- Profile Card 4: Dynamic Flex-Box List Builder -->
+          <section class="console-card" aria-labelledby="profile-links-title">
+            <div class="card-header">
+              <div class="card-title-group">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                <h2 id="profile-links-title" class="card-title">Dynamic Link Box Builder</h2>
+              </div>
+              <span id="links-count-badge" class="brand-placement-badge">0 Links Active</span>
+            </div>
+
+            <!-- Primary Add Action -->
+            <button type="button" id="btn-add-link-box" class="btn-add-link-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>+ Add Custom Link Box</span>
             </button>
+
+            <!-- Reactive Link Cards Container -->
+            <div id="profile-links-list" class="profile-links-list" aria-live="polite">
+              <!-- Dynamically populated or empty -->
+              <div id="links-empty-notice" class="links-empty-notice">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="11" y2="17"/></svg>
+                <p>No custom links added yet.<br />Click <strong>"+ Add Custom Link Box"</strong> above to add unlimited social, portfolio, or schedule links.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Profile Card 5: The PDF / Document Dropzone -->
+          <section class="console-card" aria-labelledby="profile-doc-title">
+            <div class="card-header">
+              <div class="card-title-group">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                <h2 id="profile-doc-title" class="card-title">PDF / Document Integration</h2>
+              </div>
+              <span class="clean-state-pill">Direct Download Embed</span>
+            </div>
+
+            <!-- PDF Upload Dropzone -->
+            <div id="prof-pdf-dropzone" class="logo-dropzone" tabindex="0" role="button" aria-label="Upload PDF presentation or resume">
+              <svg class="logo-dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <div class="logo-dropzone-title">Upload PDF Presentation, Deck, or Resume</div>
+              <div class="logo-dropzone-hint">Baked directly into the standalone HTML as a Base64 offline download</div>
+              <input type="file" id="prof-pdf-input" class="hidden-file-input" accept="application/pdf" />
+            </div>
+
+            <!-- Active PDF Uploaded Preview -->
+            <div id="prof-pdf-active" class="logo-active-preview">
+              <div class="logo-preview-left">
+                <div class="doc-icon-badge">PDF</div>
+                <div>
+                  <div id="prof-pdf-filename" class="logo-name-display">Resume.pdf</div>
+                  <div id="prof-pdf-filesize" class="logo-size-tag">Ready for bundle</div>
+                </div>
+              </div>
+              <button type="button" id="btn-remove-pdf" class="btn-remove-logo">✕ Remove</button>
+            </div>
+          </section>
+
+          <!-- Profile Card 6: Direct Compilation Triggers -->
+          <div class="action-trigger-cluster">
+            <button type="button" id="btn-export-profile-html" class="btn-primary-action" title="Download standalone hostable single-file index.html ready for Netlify or GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Download Hostable Card Layout (HTML)</span>
+            </button>
+
+            <div class="btn-secondary-cluster">
+              <button type="button" id="btn-export-vcard" class="btn-secondary" title="Download standard vCard .vcf contact file">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z"/><circle cx="12" cy="10" r="3"/><path d="M7 21v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/></svg>
+                Download .vcf Contact
+              </button>
+              <button type="button" id="btn-profile-to-qr" class="btn-secondary" title="Use current profile link in the QR Code Engine">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7h.01M7 12h.01M7 17h.01M12 7h.01M12 12h.01M12 17h.01M17 7h.01M17 12h.01M17 17h.01"/></svg>
+                Generate QR for Card
+              </button>
+            </div>
           </div>
         </div>
       </aside>
 
-      <!-- Right Panel: The Dynamic Preview Stage (55% Width) -->
-      <main class="preview-stage" aria-label="Dynamic QR Code Preview Stage">
-        <div class="preview-stage-container">
-          <!-- Floating Frame Workspace Window -->
-          <div class="stage-canvas-frame" aria-label="Official anyones-QR gen Logo">
-            <div class="corner-bracket corner-top-left" aria-hidden="true"></div>
-            <div class="corner-bracket corner-top-right" aria-hidden="true"></div>
-            <div class="corner-bracket corner-bottom-left" aria-hidden="true"></div>
-            <div class="corner-bracket corner-bottom-right" aria-hidden="true"></div>
+      <!-- Right Panel: Dynamic Workspace Stage (55% Width) -->
+      <main class="preview-stage" aria-label="Dynamic Workspace Stage">
+        <!-- MODE VIEW 1: QR CODE ENGINE LOGO & WORKSPACE -->
+        <div id="stage-qr-view" class="stage-view active">
+          <div class="preview-stage-container">
+            <!-- Floating Frame Workspace Window -->
+            <div class="stage-canvas-frame" aria-label="Official anyones-QR gen Logo">
+              <div class="corner-bracket corner-top-left" aria-hidden="true"></div>
+              <div class="corner-bracket corner-top-right" aria-hidden="true"></div>
+              <div class="corner-bracket corner-bottom-left" aria-hidden="true"></div>
+              <div class="corner-bracket corner-bottom-right" aria-hidden="true"></div>
 
-            <!-- Official Custom Brand Logo (Only this image is displayed) -->
-            <div id="brand-logo-card" class="brand-logo-card" role="img" aria-label="Official anyones-QR gen Custom Brand Logo">
-              <img src="/anyones-qr-gen_logo.svg" alt="anyones-QR gen custom logo emblem" class="brand-logo-img-main" />
-              <div class="brand-logo-footer-banner">
-                <span class="brand-tag-pill">✨ anyones-QR gen</span>
-                <span class="brand-subtag">Official Custom Logo</span>
+              <!-- Official Custom Brand Logo (Only this image is displayed) -->
+              <div id="brand-logo-card" class="brand-logo-card" role="img" aria-label="Official anyones-QR gen Custom Brand Logo">
+                <img src="/anyones-qr-gen_logo.svg" alt="anyones-QR gen custom logo emblem" class="brand-logo-img-main" />
+                <div class="brand-logo-footer-banner">
+                  <span class="brand-tag-pill">✨ anyones-QR gen</span>
+                  <span class="brand-subtag">Official Custom Logo</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Hidden Offscreen Container for QR Generator Engine Downloads -->
-          <div id="qr-canvas-wrapper" style="position: absolute; width: 400px; height: 400px; visibility: hidden; pointer-events: none; left: -9999px; top: -9999px;" aria-hidden="true"></div>
+            <!-- Hidden Offscreen Container for QR Generator Engine Downloads -->
+            <div id="qr-canvas-wrapper" style="position: absolute; width: 400px; height: 400px; visibility: hidden; pointer-events: none; left: -9999px; top: -9999px;" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <!-- MODE VIEW 2: LIVE INTERACTIVE MOBILE PREVIEW STAGE -->
+        <div id="stage-profile-view" class="stage-view" style="display: none;">
+          <div class="profile-stage-wrapper">
+            <!-- Realistic Floating Smartphone Mockup Chassis -->
+            <div class="mobile-viewport-chassis" id="mobile-mockup-frame">
+              <!-- Metallic Edge Reflection Overlays -->
+              <div class="chassis-speaker-pill" aria-hidden="true">
+                <div class="dynamic-island-camera"></div>
+              </div>
+
+              <!-- Realistic Status Bar -->
+              <div class="mobile-status-bar" aria-hidden="true">
+                <span class="status-time">9:41</span>
+                <div class="status-icons">
+                  <svg width="14" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M1 18h3v4H1v-4zm5-4h3v8H6v-8zm5-4h3v12h-3V10zm5-5h3v17h-3V5zm5-4h3v21h-3V1z"/></svg>
+                  <svg width="13" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9.2 2.1-12 5.51l12 14.49 12-14.49c-2.8-3.41-7.03-5.51-12-5.51z"/></svg>
+                  <svg width="18" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="5" width="16" height="14" rx="3" stroke="currentColor" stroke-width="2" fill="none"/><rect x="4" y="7" width="10" height="10" rx="1.5"/><path d="M20 10v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </div>
+              </div>
+
+              <!-- Mobile Internal Screen Canvas -->
+              <div class="mobile-screen-scrollable" id="mobile-screen-viewport">
+                <!-- Background Ambient Backlight Glow -->
+                <div class="mobile-ambient-glow" id="preview-ambient-glow" aria-hidden="true"></div>
+
+                <!-- 1. Rounded Profile Avatar Frame -->
+                <div class="preview-avatar-wrapper">
+                  <div class="preview-avatar-frame" id="preview-avatar-frame">
+                    <img id="preview-avatar-img" class="preview-avatar-image" src="" alt="Profile avatar preview" style="display: none;" />
+                    <div id="preview-avatar-placeholder" class="preview-avatar-placeholder" aria-hidden="true">
+                      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 2. Profile Details Typography -->
+                <div class="preview-bio-block">
+                  <h3 id="preview-name" class="preview-name is-placeholder">Your Full Name</h3>
+                  <div id="preview-headline" class="preview-headline is-placeholder">Company / Job Title</div>
+                  <div id="preview-location-row" class="preview-location is-placeholder">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span id="preview-location-text">Location Baseline</span>
+                  </div>
+                  <p id="preview-bio-text" class="preview-bio is-placeholder">
+                    Your brief bio or tagline will be dynamically showcased here...
+                  </p>
+                </div>
+
+                <!-- 3. Action Button Group: Exchange Contact & .vcf Trigger -->
+                <div class="preview-action-row">
+                  <button type="button" id="preview-btn-contact" class="preview-action-btn primary" title="Save vCard Contact">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z"/><circle cx="12" cy="10" r="3"/><path d="M7 21v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/></svg>
+                    <span>Exchange Contact</span>
+                  </button>
+                  <button type="button" id="preview-btn-vcf" class="preview-action-btn secondary" title="Direct .vcf file export">
+                    <span>.vcf</span>
+                  </button>
+                </div>
+
+                <!-- 4. Custom Link Box Stack -->
+                <div class="preview-links-stack" id="preview-links-stack">
+                  <!-- Empty placeholder card -->
+                  <div class="preview-link-skeleton" id="preview-skeleton-card">
+                    <div class="skeleton-icon">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+                    </div>
+                    <div class="skeleton-content">
+                      <span class="skeleton-title">Sample Interactive Link</span>
+                      <span class="skeleton-url">Add your custom links in the left console</span>
+                    </div>
+                    <svg class="skeleton-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                  </div>
+                </div>
+
+                <!-- 5. Document Display Section (Shown when PDF is loaded) -->
+                <div id="preview-doc-card" class="preview-doc-card" style="display: none;">
+                  <div class="doc-card-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  </div>
+                  <div class="doc-card-info">
+                    <span id="preview-doc-title" class="doc-card-name">Resume_Deck.pdf</span>
+                    <span id="preview-doc-meta" class="doc-card-size">Embedded Document</span>
+                  </div>
+                  <a id="preview-doc-download" class="doc-download-pill" href="#" download title="Download embedded PDF">Download</a>
+                </div>
+
+                <!-- 6. Mobile Bottom Branding Stamp -->
+                <footer class="preview-screen-footer">
+                  <div class="mobile-footer-pill">
+                    <img src="/custom-logo-icon.svg" width="12" height="12" alt="" aria-hidden="true" />
+                    <span>anyone's-QR_gen.me • Serverless</span>
+                  </div>
+                </footer>
+              </div>
+            </div>
+
+            <!-- Bottom Floating Preview Tooltip Bar -->
+            <div class="stage-info-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              <span>1:1 Live Mobile Viewport Mockup • Reacts instantly to your edits</span>
+            </div>
+          </div>
         </div>
       </main>
     </div>
 
-    <!-- Feedback Toast for Clipboard Copying -->
+    <!-- Feedback Toast for Clipboard / Action Notifications -->
     <div id="toast-notification" class="toast-notification" role="status" aria-live="polite">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-teal);"><polyline points="20 6 9 17 4 12"/></svg>
       <span id="toast-message">Copied High-Res QR code to clipboard!</span>
