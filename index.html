@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>anyone's QR gen — 100% Free &amp; Private Client-Side QR Generator</title>
+    <meta name="description" content="100% client-side, free custom QR code generator for anyone's-QR_gen.me. Zero tracking, instant reactive preview, custom logos, and high-res export." />
+    <meta property="og:title" content="anyone's QR gen — 100% Free &amp; Private Client-Side QR Generator" />
+    <meta property="og:description" content="Free, private, 100% client-side QR code generator. Zero paywalls, zero ads, zero data tracking." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Google Fonts for High-End Developer Aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Core Compilation Framework via unpkg -->
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+
+    <!-- App Stylesheet -->
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="app-wrapper">
+      <!-- Left Panel: The Control Console (45% Width) -->
+      <aside class="control-console" aria-label="QR Code Generator Controls">
+        <!-- App Header & Brand -->
+        <header class="app-header">
+          <div class="brand-row">
+            <div class="brand-lockup">
+              <span class="brand-beacon" aria-hidden="true"></span>
+              <h1 class="brand-title">anyone's <span>QR gen</span></h1>
+            </div>
+            <div class="brand-badge" title="No backend, no analytics, no subscription prompts">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              100% FREE &amp; PRIVATE
+            </div>
+          </div>
+          <p class="subheadline">
+            Zero tracking. Zero subscriptions. Every byte generated locally in your browser memory—no server round-trips, ever. Link creation is completely unlimited.
+          </p>
+        </header>
+
+        <!-- Section 1: Content Input -->
+        <section class="console-card" aria-labelledby="section-content-title">
+          <div class="card-header">
+            <div class="card-title-group">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              <h2 id="section-content-title" class="card-title">Content Payload</h2>
+            </div>
+            <div class="quick-protocols" role="toolbar" aria-label="Preset Protocol Fillers">
+              <button type="button" class="protocol-chip" data-prefix="https://" title="Add https:// prefix">https://</button>
+              <button type="button" class="protocol-chip" data-prefix="mailto:" title="Add mailto: prefix">mailto:</button>
+              <button type="button" class="protocol-chip" data-prefix="WIFI:T:WPA;S:MyNetwork;P:password;;" title="Fill Wi-Fi setup string">WIFI:</button>
+              <button type="button" class="protocol-chip" data-prefix="tel:" title="Add phone call prefix">tel:</button>
+            </div>
+          </div>
+
+          <div class="input-field-wrapper">
+            <label for="qr-data-input" class="visually-hidden" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">Content or Destination URL</label>
+            <textarea
+              id="qr-data-input"
+              class="text-input-field"
+              rows="3"
+              placeholder="Enter destination URL, plain text, Wi-Fi credentials, or vCard..."
+              autofocus
+              spellcheck="false"
+              aria-describedby="char-count-info"
+            >https://anyone's-QR_gen.me</textarea>
+            <div class="input-footer" id="char-count-info">
+              <span class="char-counter"><span id="char-count">24</span> characters</span>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <label for="ecc-select" style="color: var(--text-muted);">Redundancy:</label>
+                <select id="ecc-select" class="select-input" aria-label="Error Correction Level">
+                  <option value="L">L · Low (7%)</option>
+                  <option value="M">M · Medium (15%)</option>
+                  <option value="Q">Q · Quartile (25%)</option>
+                  <option value="H" selected>H · High (30%)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Color Matrix Options -->
+        <section class="console-card" aria-labelledby="section-color-title">
+          <div class="card-header">
+            <div class="card-title-group">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+              <h2 id="section-color-title" class="card-title">Color Matrix</h2>
+            </div>
+            <div id="contrast-status" class="contrast-pill" title="Calculated scan contrast ratio">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>Scan Safe (15.2:1)</span>
+            </div>
+          </div>
+
+          <div class="color-matrix-grid">
+            <!-- Foreground / Pattern (Dots) -->
+            <div class="color-channel-unit">
+              <label for="color-dots-hex" class="color-channel-label">Pattern (Foreground)</label>
+              <div class="color-picker-composite">
+                <input type="color" id="color-dots-picker" class="native-color-picker" value="#00F2FE" title="Pick pattern color" aria-label="Foreground color picker" />
+                <input type="text" id="color-dots-hex" class="color-hex-text" value="#00F2FE" maxlength="7" spellcheck="false" aria-label="Foreground color hex code" />
+              </div>
+            </div>
+
+            <!-- Backdrop (Background Canvas) -->
+            <div class="color-channel-unit">
+              <label for="color-bg-hex" class="color-channel-label">Backdrop (Canvas)</label>
+              <div class="color-picker-composite">
+                <input type="color" id="color-bg-picker" class="native-color-picker" value="#08090E" title="Pick backdrop color" aria-label="Backdrop color picker" />
+                <input type="text" id="color-bg-hex" class="color-hex-text" value="#08090E" maxlength="7" spellcheck="false" aria-label="Backdrop color hex code" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Color Matrix Presets -->
+          <div class="color-meta-row">
+            <span class="palette-presets-label">Dev Palettes:</span>
+            <div class="preset-bubbles" role="group" aria-label="Developer Color Presets">
+              <button type="button" class="preset-swatch active" data-fg="#00F2FE" data-bg="#08090E" title="Electric Teal on Obsidian Midnight" style="background: linear-gradient(135deg, #00F2FE 50%, #08090E 50%);" aria-label="Electric Teal preset"></button>
+              <button type="button" class="preset-swatch" data-fg="#9D4EDD" data-bg="#08090E" title="Neon Purple on Obsidian Midnight" style="background: linear-gradient(135deg, #9D4EDD 50%, #08090E 50%);" aria-label="Neon Purple preset"></button>
+              <button type="button" class="preset-swatch" data-fg="#3877FF" data-bg="#0B0E17" title="Electric Azure on Midnight Navy" style="background: linear-gradient(135deg, #3877FF 50%, #0B0E17 50%);" aria-label="Electric Azure preset"></button>
+              <button type="button" class="preset-swatch" data-fg="#14F1D9" data-bg="#120E22" title="Turquoise on Deep Indigo" style="background: linear-gradient(135deg, #14F1D9 50%, #120E22 50%);" aria-label="Turquoise on Indigo preset"></button>
+              <button type="button" class="preset-swatch" data-fg="#000000" data-bg="#FFFFFF" title="High Contrast Print (Black on White)" style="background: linear-gradient(135deg, #000000 50%, #FFFFFF 50%);" aria-label="Black on White preset"></button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Structural Layout Templates -->
+        <section class="console-card" aria-labelledby="section-geometry-title">
+          <div class="card-header">
+            <div class="card-title-group">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+              <h2 id="section-geometry-title" class="card-title">Structural Layout Templates</h2>
+            </div>
+          </div>
+
+          <!-- Dot Style Cards -->
+          <div class="geometry-selector-grid" role="radiogroup" aria-label="QR Pattern Style">
+            <!-- Classic Square -->
+            <div class="geometry-option-card" data-dot-style="square" role="radio" aria-checked="false" tabindex="0">
+              <div class="geometry-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              </div>
+              <span class="geometry-label">Classic Square</span>
+            </div>
+
+            <!-- Rounded Nodes -->
+            <div class="geometry-option-card active" data-dot-style="rounded" role="radio" aria-checked="true" tabindex="0">
+              <div class="geometry-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="2.5"/><rect x="14" y="3" width="7" height="7" rx="2.5"/><rect x="3" y="14" width="7" height="7" rx="2.5"/><rect x="14" y="14" width="7" height="7" rx="2.5"/></svg>
+              </div>
+              <span class="geometry-label">Rounded Nodes</span>
+            </div>
+
+            <!-- Fluid Spheres -->
+            <div class="geometry-option-card" data-dot-style="dots" role="radio" aria-checked="false" tabindex="0">
+              <div class="geometry-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.5" cy="6.5" r="3.5"/><circle cx="17.5" cy="6.5" r="3.5"/><circle cx="6.5" cy="17.5" r="3.5"/><circle cx="17.5" cy="17.5" r="3.5"/></svg>
+              </div>
+              <span class="geometry-label">Fluid Spheres</span>
+            </div>
+
+            <!-- Grounded Blocks -->
+            <div class="geometry-option-card" data-dot-style="classy" role="radio" aria-checked="false" tabindex="0">
+              <div class="geometry-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h7v7H3V3zm11 0h7v7h-7V3zm-11 11h7v7H3v-7zm11 0h7v7h-7v-7z" rx="1"/></svg>
+              </div>
+              <span class="geometry-label">Grounded Blocks</span>
+            </div>
+          </div>
+
+          <!-- Corner Geometries -->
+          <div class="corner-options-row">
+            <div class="corner-control-group">
+              <span class="corner-control-label">Corner Square (Outer):</span>
+              <div class="corner-button-group" role="group" aria-label="Corner Square Outer Style">
+                <button type="button" class="corner-button" data-corner-square="square">Sharp</button>
+                <button type="button" class="corner-button active" data-corner-square="extra-rounded">Curved</button>
+                <button type="button" class="corner-button" data-corner-square="dot">Spherical</button>
+              </div>
+            </div>
+
+            <div class="corner-control-group">
+              <span class="corner-control-label">Corner Dot (Inner):</span>
+              <div class="corner-button-group" role="group" aria-label="Corner Dot Inner Style">
+                <button type="button" class="corner-button" data-corner-dot="square">Square</button>
+                <button type="button" class="corner-button active" data-corner-dot="dot">Circle</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Asset Logo Integration -->
+        <section class="console-card" aria-labelledby="section-logo-title">
+          <div class="card-header">
+            <div class="card-title-group">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-tag" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+              <h2 id="section-logo-title" class="card-title">Asset Logo Integration</h2>
+            </div>
+            <div class="logo-security-note" title="Background dots are automatically masked out behind the logo to prevent scanning conflicts">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Dots Masked (Safe Scan)</span>
+            </div>
+          </div>
+
+          <!-- Drag and Drop Zone -->
+          <div id="logo-dropzone" class="logo-dropzone" tabindex="0" role="button" aria-label="Upload custom center logo">
+            <svg class="logo-dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <div class="logo-dropzone-title">Drag &amp; drop central brand logo here</div>
+            <div class="logo-dropzone-hint">or click to browse local SVG, PNG, WebP (computed via FileReader)</div>
+            <input type="file" id="logo-file-input" class="hidden-file-input" accept="image/png, image/jpeg, image/svg+xml, image/webp" />
+          </div>
+
+          <!-- Active Logo Injected State -->
+          <div id="logo-active-preview" class="logo-active-preview">
+            <div class="logo-preview-left">
+              <img id="logo-thumbnail-img" class="logo-thumbnail" alt="Selected logo thumbnail" src="" />
+              <div>
+                <div id="logo-file-name" class="logo-name-display">logo.png</div>
+                <div id="logo-file-size" class="logo-size-tag">Client Base64 Encoded</div>
+              </div>
+            </div>
+            <button type="button" id="btn-remove-logo" class="btn-remove-logo">✕ Remove</button>
+          </div>
+
+          <!-- Sliders for Logo Size & Margin -->
+          <div id="logo-tuning-row" class="logo-tuning-row">
+            <div class="slider-group">
+              <div class="slider-label">
+                <span>Logo Scale:</span>
+                <span id="logo-size-val">28%</span>
+              </div>
+              <input type="range" id="logo-size-slider" class="slider-input" min="0.15" max="0.38" step="0.01" value="0.28" aria-label="Logo size scale" />
+            </div>
+            <div class="slider-group">
+              <div class="slider-label">
+                <span>Margin Padding:</span>
+                <span id="logo-margin-val">4px</span>
+              </div>
+              <input type="range" id="logo-margin-slider" class="slider-input" min="0" max="16" step="1" value="4" aria-label="Logo padding margin" />
+            </div>
+          </div>
+        </section>
+
+        <!-- Primary Action Triggers -->
+        <div class="action-trigger-cluster">
+          <button type="button" id="btn-download-png" class="btn-primary-action" title="Download ultra high-definition PNG format">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download High-Res PNG</span>
+          </button>
+
+          <div class="btn-secondary-cluster">
+            <button type="button" id="btn-download-svg" class="btn-secondary" title="Download infinite resolution vector SVG">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              Vector SVG
+            </button>
+            <button type="button" id="btn-copy-clipboard" class="btn-secondary" title="Copy rendered PNG image directly to clipboard">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              Copy Image
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Right Panel: The Dynamic Preview Stage (55% Width) -->
+      <main class="preview-stage" aria-label="Dynamic QR Code Preview Stage">
+        <div class="preview-stage-container">
+          <!-- Floating Frame Workspace Window -->
+          <div class="stage-canvas-frame" aria-label="Live rendered QR canvas">
+            <div class="corner-bracket corner-top-left" aria-hidden="true"></div>
+            <div class="corner-bracket corner-top-right" aria-hidden="true"></div>
+            <div class="corner-bracket corner-bottom-left" aria-hidden="true"></div>
+            <div class="corner-bracket corner-bottom-right" aria-hidden="true"></div>
+
+            <!-- Internal Crisp SVG Canvas Mounting Container -->
+            <div id="qr-canvas-wrapper" role="img" aria-label="Generated custom QR code"></div>
+          </div>
+
+          <!-- Calculated Real-Time Metadata Panel -->
+          <div class="metadata-panel">
+            <div class="metadata-grid">
+              <div class="metadata-item">
+                <span class="meta-label">Payload Length</span>
+                <span id="meta-chars" class="meta-value">24 characters</span>
+              </div>
+              <div class="metadata-item">
+                <span class="meta-label">Output Resolution</span>
+                <span class="meta-value">400 × 400 px (SVG / Hi-Res)</span>
+              </div>
+              <div class="metadata-item">
+                <span class="meta-label">Target Domain Reference</span>
+                <span class="meta-value accent">anyone's-QR_gen.me</span>
+              </div>
+              <div class="metadata-item">
+                <span class="meta-label">Security State</span>
+                <span class="meta-value accent">
+                  <span class="status-dot" aria-hidden="true"></span>
+                  Local Processing Secure
+                </span>
+              </div>
+            </div>
+
+            <div class="scan-test-banner">
+              <span><strong>Instant Scan Test:</strong> Point your phone camera directly at the canvas to test scannability.</span>
+              <span id="meta-redundancy-badge">ECC: Level H (30%)</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Feedback Toast for Clipboard Copying -->
+    <div id="toast-notification" class="toast-notification" role="status" aria-live="polite">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-teal);"><polyline points="20 6 9 17 4 12"/></svg>
+      <span id="toast-message">Copied High-Res QR code to clipboard!</span>
+    </div>
+
+    <!-- JavaScript Application Engine -->
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

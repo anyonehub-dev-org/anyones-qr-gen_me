@@ -1,0 +1,6 @@
+{
+  "name": "anyone's QR gen",
+  "description": "100% free, client-side custom QR code generator with developer-centric dashboard, instant reactive SVG preview, and custom logo integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
