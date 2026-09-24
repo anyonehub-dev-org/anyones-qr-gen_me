@@ -187,6 +187,24 @@ const elements = {
   btnExportProfileHtml: document.getElementById('btn-export-profile-html'),
   btnExportVcard: document.getElementById('btn-export-vcard'),
   btnProfileToQr: document.getElementById('btn-profile-to-qr'),
+  btnPreviewCardModal: document.getElementById('btn-preview-card-modal'),
+  btnStageExpandPreview: document.getElementById('btn-stage-expand-preview'),
+
+  // Preview Modal Elements
+  cardPreviewModal: document.getElementById('card-preview-modal'),
+  modalPreviewBackdrop: document.getElementById('modal-preview-backdrop'),
+  btnClosePreviewModal: document.getElementById('btn-close-preview-modal'),
+  btnToggleViewMobile: document.getElementById('btn-toggle-view-mobile'),
+  btnToggleViewDesktop: document.getElementById('btn-toggle-view-desktop'),
+  btnOpenPreviewTab: document.getElementById('btn-open-preview-tab'),
+  previewIframeWrapper: document.getElementById('preview-iframe-wrapper'),
+  previewLiveIframe: document.getElementById('preview-live-iframe'),
+  btnModalDownloadHtml: document.getElementById('btn-modal-download-html'),
+
+  // Mobile Viewport Switcher Elements
+  btnMobileControls: document.getElementById('btn-mobile-controls'),
+  btnMobilePreview: document.getElementById('btn-mobile-preview'),
+  btnMobileBack: document.getElementById('btn-mobile-back'),
 
   // --- Mobile Preview Mockup Elements ---
   mobileScreenViewport: document.getElementById('mobile-screen-viewport'),
@@ -231,9 +249,37 @@ function showToast(message, isError = false) {
 }
 
 // ============================================================================
-// Global Navigation Splitter (QR Engine vs Profile Builder)
+// Global Navigation Splitter & Mobile Viewport Controller
 // ============================================================================
+function setMobileView(view) {
+  if (view === 'preview') {
+    document.body.classList.add('mobile-show-preview');
+    if (elements.btnMobileControls) {
+      elements.btnMobileControls.classList.remove('active');
+      elements.btnMobileControls.setAttribute('aria-selected', 'false');
+    }
+    if (elements.btnMobilePreview) {
+      elements.btnMobilePreview.classList.add('active');
+      elements.btnMobilePreview.setAttribute('aria-selected', 'true');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    document.body.classList.remove('mobile-show-preview');
+    if (elements.btnMobileControls) {
+      elements.btnMobileControls.classList.add('active');
+      elements.btnMobileControls.setAttribute('aria-selected', 'true');
+    }
+    if (elements.btnMobilePreview) {
+      elements.btnMobilePreview.classList.remove('active');
+      elements.btnMobilePreview.setAttribute('aria-selected', 'false');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
 function setAppMode(mode) {
+  setMobileView('controls');
+
   if (mode === 'qr') {
     elements.tabNavQr.classList.add('active');
     elements.tabNavQr.setAttribute('aria-selected', 'true');
@@ -931,10 +977,8 @@ function downloadVCard() {
   showToast('Downloaded .vcf Contact File!');
 }
 
-// 6. Zero-Cost Serverless Export Blueprint: Standalone Single-File HTML
-function downloadHostableHtml() {
-  showToast('Compiling standalone hostable card...');
-
+// 6. Zero-Cost Serverless Export Blueprint: Standalone Single-File HTML Generation
+function generateCompiledHtmlString() {
   const safeTitle = profileState.fullName.trim()
     ? `${profileState.fullName} — Digital Business Card`
     : "Digital Business Card Profile";
@@ -994,7 +1038,7 @@ function downloadHostableHtml() {
   if (profileState.company.trim()) headlineParts.push(profileState.company);
   const headlineStr = headlineParts.join(' • ');
 
-  const htmlDoc = `<!DOCTYPE html>
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1133,7 +1177,11 @@ function downloadHostableHtml() {
   </script>
 </body>
 </html>`;
+}
 
+function downloadHostableHtml() {
+  showToast('Compiling standalone hostable card...');
+  const htmlDoc = generateCompiledHtmlString();
   const blob = new Blob([htmlDoc], { type: 'text/html;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -1145,6 +1193,47 @@ function downloadHostableHtml() {
   URL.revokeObjectURL(url);
 
   showToast('Downloaded Hostable Single-File index.html!');
+}
+
+// 7. Interactive Preview Modal Controllers
+function openCardPreviewModal() {
+  const html = generateCompiledHtmlString();
+  if (elements.previewLiveIframe) {
+    elements.previewLiveIframe.srcdoc = html;
+  }
+  if (elements.cardPreviewModal) {
+    elements.cardPreviewModal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  showToast('Launched live full-screen card preview');
+}
+
+function closeCardPreviewModal() {
+  if (elements.cardPreviewModal) {
+    elements.cardPreviewModal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+}
+
+function setModalDeviceView(mode) {
+  if (!elements.previewIframeWrapper) return;
+  if (mode === 'desktop') {
+    elements.previewIframeWrapper.className = 'preview-iframe-wrapper mode-desktop';
+    if (elements.btnToggleViewDesktop) elements.btnToggleViewDesktop.classList.add('active');
+    if (elements.btnToggleViewMobile) elements.btnToggleViewMobile.classList.remove('active');
+  } else {
+    elements.previewIframeWrapper.className = 'preview-iframe-wrapper mode-mobile';
+    if (elements.btnToggleViewMobile) elements.btnToggleViewMobile.classList.add('active');
+    if (elements.btnToggleViewDesktop) elements.btnToggleViewDesktop.classList.remove('active');
+  }
+}
+
+function openPreviewInNewTab() {
+  const html = generateCompiledHtmlString();
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  window.open(url, '_blank');
+  showToast('Opened live card in new tab!');
 }
 
 // ============================================================================
@@ -1549,6 +1638,48 @@ function attachEventListeners() {
   elements.btnExportVcard.addEventListener('click', downloadVCard);
   elements.previewBtnContact.addEventListener('click', downloadVCard);
   elements.previewBtnVcf.addEventListener('click', downloadVCard);
+
+  // Fullscreen Live Card Preview Triggers
+  if (elements.btnPreviewCardModal) {
+    elements.btnPreviewCardModal.addEventListener('click', openCardPreviewModal);
+  }
+  if (elements.btnStageExpandPreview) {
+    elements.btnStageExpandPreview.addEventListener('click', openCardPreviewModal);
+  }
+  if (elements.modalPreviewBackdrop) {
+    elements.modalPreviewBackdrop.addEventListener('click', closeCardPreviewModal);
+  }
+  if (elements.btnClosePreviewModal) {
+    elements.btnClosePreviewModal.addEventListener('click', closeCardPreviewModal);
+  }
+  if (elements.btnToggleViewMobile) {
+    elements.btnToggleViewMobile.addEventListener('click', () => setModalDeviceView('mobile'));
+  }
+  if (elements.btnToggleViewDesktop) {
+    elements.btnToggleViewDesktop.addEventListener('click', () => setModalDeviceView('desktop'));
+  }
+  if (elements.btnOpenPreviewTab) {
+    elements.btnOpenPreviewTab.addEventListener('click', openPreviewInNewTab);
+  }
+  if (elements.btnModalDownloadHtml) {
+    elements.btnModalDownloadHtml.addEventListener('click', downloadHostableHtml);
+  }
+
+  // Keyboard shortcut to close preview modal
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeCardPreviewModal();
+  });
+
+  // Mobile Viewport Switcher Listeners
+  if (elements.btnMobileControls) {
+    elements.btnMobileControls.addEventListener('click', () => setMobileView('controls'));
+  }
+  if (elements.btnMobilePreview) {
+    elements.btnMobilePreview.addEventListener('click', () => setMobileView('preview'));
+  }
+  if (elements.btnMobileBack) {
+    elements.btnMobileBack.addEventListener('click', () => setMobileView('controls'));
+  }
 
   elements.btnProfileToQr.addEventListener('click', () => {
     const suggestedUrl = profileState.fullName.trim()

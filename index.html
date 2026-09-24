@@ -42,6 +42,19 @@
           </p>
         </header>
 
+        <!-- Mobile Viewport Switcher Bar (Adaptive on mobile browsers <= 1024px) -->
+        <div class="mobile-view-nav" role="tablist" aria-label="Mobile Layout View Switcher">
+          <button type="button" id="btn-mobile-controls" class="mobile-nav-btn active" role="tab" aria-selected="true">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            <span>Configure</span>
+          </button>
+          <button type="button" id="btn-mobile-preview" class="mobile-nav-btn" role="tab" aria-selected="false">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7h.01M7 12h.01M7 17h.01M12 7h.01M12 12h.01M12 17h.01M17 7h.01M17 12h.01M17 17h.01"/></svg>
+            <span>Live Stage</span>
+            <span class="mobile-live-indicator" aria-hidden="true"></span>
+          </button>
+        </div>
+
         <!-- Global Navigation Splitter: Tab 1 (QR Code Engine) & Tab 2 (Profile Builder) -->
         <nav class="global-nav-splitter" role="tablist" aria-label="Workspace Engine Switcher">
           <button type="button" id="tab-nav-qr" class="nav-tab-btn active" role="tab" aria-selected="true" aria-controls="panel-qr-engine">
@@ -530,6 +543,12 @@
 
           <!-- Profile Card 6: Direct Compilation Triggers -->
           <div class="action-trigger-cluster">
+            <!-- Full Interactive Preview Trigger -->
+            <button type="button" id="btn-preview-card-modal" class="btn-preview-trigger" title="Preview your digital card full-screen exactly as it will look live before downloading">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <span>Preview Live Card (Full Screen)</span>
+            </button>
+
             <button type="button" id="btn-export-profile-html" class="btn-primary-action" title="Download standalone hostable single-file index.html ready for Netlify or GitHub">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               <span>Download Hostable Card Layout (HTML)</span>
@@ -551,6 +570,15 @@
 
       <!-- Right Panel: Dynamic Workspace Stage (55% Width) -->
       <main class="preview-stage" aria-label="Dynamic Workspace Stage">
+        <!-- Mobile Return Bar (Visible on mobile <= 1024px when viewing stage) -->
+        <div class="mobile-return-bar" aria-label="Return to Controls Bar">
+          <button type="button" id="btn-mobile-back" class="btn-mobile-back">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            <span>Back to Controls</span>
+          </button>
+          <span class="mobile-stage-badge">Live Interactive Stage</span>
+        </div>
+
         <!-- MODE VIEW 1: QR CODE ENGINE LOGO & WORKSPACE -->
         <div id="stage-qr-view" class="stage-view active">
           <div class="preview-stage-container">
@@ -672,14 +700,74 @@
               </div>
             </div>
 
-            <!-- Bottom Floating Preview Tooltip Bar -->
+            <!-- Bottom Floating Preview Tooltip Bar with Interactive Expand Button -->
             <div class="stage-info-pill">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-              <span>1:1 Live Mobile Viewport Mockup • Reacts instantly to your edits</span>
+              <span>1:1 Live Mobile Viewport Mockup</span>
+              <button type="button" id="btn-stage-expand-preview" class="btn-stage-preview" title="Open full-screen interactive preview">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+                <span>Expand Fullscreen</span>
+              </button>
             </div>
           </div>
         </div>
       </main>
+    </div>
+
+    <!-- Fullscreen Interactive Card Preview Modal -->
+    <div id="card-preview-modal" class="card-preview-modal" role="dialog" aria-modal="true" aria-labelledby="modal-preview-title" style="display: none;">
+      <div class="modal-backdrop" id="modal-preview-backdrop"></div>
+      <div class="modal-window">
+        <header class="modal-header">
+          <div class="modal-title-group">
+            <span class="modal-badge-live">LIVE PREVIEW</span>
+            <h2 id="modal-preview-title" class="modal-title">Interactive Card Live Preview</h2>
+          </div>
+
+          <!-- Device Viewport Toggles & Open in Tab -->
+          <div class="modal-toolbar">
+            <div class="modal-device-toggles" role="radiogroup" aria-label="Preview Viewport Mode">
+              <button type="button" id="btn-toggle-view-mobile" class="device-toggle-btn active" title="Mobile Smartphone View">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                <span>Mobile</span>
+              </button>
+              <button type="button" id="btn-toggle-view-desktop" class="device-toggle-btn" title="Full Desktop Centered Card View">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                <span>Desktop</span>
+              </button>
+            </div>
+
+            <button type="button" id="btn-open-preview-tab" class="btn-open-tab" title="Open compiled HTML in a real browser tab">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <span>Open in New Tab</span>
+            </button>
+
+            <button type="button" id="btn-close-preview-modal" class="modal-close-btn" title="Close Preview" aria-label="Close Preview">✕</button>
+          </div>
+        </header>
+
+        <!-- Modal Body with Live Sandboxed Iframe Rendering the Exact Compiled HTML -->
+        <div class="modal-body-container" id="modal-body-container">
+          <div class="preview-iframe-wrapper mode-mobile" id="preview-iframe-wrapper">
+            <iframe id="preview-live-iframe" class="preview-live-iframe" sandbox="allow-scripts allow-downloads" title="Live Business Card Preview"></iframe>
+          </div>
+        </div>
+
+        <!-- Modal Footer with Quick Actions -->
+        <footer class="modal-footer">
+          <div class="modal-footer-note">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+            <span>Fully functional interactive preview: links, contact vCard, and documents work live.</span>
+          </div>
+
+          <div class="modal-footer-actions">
+            <button type="button" id="btn-modal-download-html" class="btn-primary-action" style="padding: 0.65rem 1.25rem;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Download Hostable Card (HTML)</span>
+            </button>
+          </div>
+        </footer>
+      </div>
     </div>
 
     <!-- Feedback Toast for Clipboard / Action Notifications -->
