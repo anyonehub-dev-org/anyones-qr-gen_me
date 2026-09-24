@@ -192,6 +192,38 @@ body::after {
   gap: 0.65rem;
 }
 
+.brand-header-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: contain;
+  box-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+}
+
+.btn-use-brand-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.55rem 0.85rem;
+  background: rgba(0, 242, 254, 0.08);
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  border-radius: var(--radius-sm);
+  color: var(--accent-teal);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-use-brand-logo:hover {
+  background: rgba(0, 242, 254, 0.16);
+  border-color: var(--accent-teal);
+  box-shadow: 0 0 12px var(--accent-teal-glow);
+}
+
 .brand-beacon {
   width: 10px;
   height: 10px;
@@ -1028,9 +1060,48 @@ body::after {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.75rem;
+  gap: 1.25rem;
   width: 100%;
   max-width: 520px;
+}
+
+/* Stage Mode Switcher Tabs */
+.stage-mode-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  padding: 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.stage-mode-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.15rem;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.stage-mode-tab:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.stage-mode-tab.active {
+  background: var(--gradient-accent);
+  color: #05070c;
+  box-shadow: 0 0 16px var(--accent-teal-glow);
 }
 
 /* Floating Stage Frame */
@@ -1060,6 +1131,52 @@ body::after {
     0 0 50px rgba(0, 0, 0, 0.9),
     0 0 0 1px rgba(56, 119, 255, 0.25),
     0 0 45px rgba(157, 78, 221, 0.18);
+}
+
+/* Brand Logo Presentation Card */
+.brand-logo-card {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #08090e;
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7), 0 0 24px rgba(0, 242, 254, 0.12);
+  transition: all var(--transition-base);
+}
+
+.brand-logo-img-main {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+.brand-logo-footer-banner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(14, 16, 23, 0.96);
+  border-top: 1px solid var(--border-muted);
+}
+
+.brand-tag-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--accent-teal);
+  letter-spacing: 0.02em;
+}
+
+.brand-subtag {
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
 }
 
 /* Internal Composite Card Container */
@@ -1297,6 +1414,14 @@ body::after {
     width: 340px;
     min-height: 340px;
     height: auto;
+  }
+
+  .brand-logo-card {
+    width: 300px;
+  }
+
+  .brand-logo-img-main {
+    height: 300px;
   }
 
   .qr-composite-card,

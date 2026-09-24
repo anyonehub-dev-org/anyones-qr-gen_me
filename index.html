@@ -29,7 +29,7 @@
         <header class="app-header">
           <div class="brand-row">
             <div class="brand-lockup">
-              <span class="brand-beacon" aria-hidden="true"></span>
+              <img src="/custom-logo-icon.svg" alt="anyones-QR gen emblem" class="brand-header-icon" width="34" height="34" />
               <h1 class="brand-title">anyone's <span>QR gen</span></h1>
             </div>
             <div class="brand-badge" title="No backend, no analytics, no subscription prompts">
@@ -310,6 +310,13 @@
           </div>
 
           <!-- Drag and Drop Zone -->
+          <div style="margin-bottom: 0.75rem;">
+            <button type="button" id="btn-use-custom-logo" class="btn-use-brand-logo" title="Embed official anyones-QR gen custom logo into the center of your QR code">
+              <img src="/custom-logo-icon.svg" width="18" height="18" alt="" aria-hidden="true" />
+              <span>Use Official anyones-QR gen Logo as Center Icon</span>
+            </button>
+          </div>
+
           <div id="logo-dropzone" class="logo-dropzone" tabindex="0" role="button" aria-label="Upload custom center logo">
             <svg class="logo-dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             <div class="logo-dropzone-title">Drag &amp; drop central brand logo here</div>
@@ -372,49 +379,24 @@
       <main class="preview-stage" aria-label="Dynamic QR Code Preview Stage">
         <div class="preview-stage-container">
           <!-- Floating Frame Workspace Window -->
-          <div class="stage-canvas-frame" aria-label="Live rendered QR canvas">
+          <div class="stage-canvas-frame" aria-label="Official anyones-QR gen Logo">
             <div class="corner-bracket corner-top-left" aria-hidden="true"></div>
             <div class="corner-bracket corner-top-right" aria-hidden="true"></div>
             <div class="corner-bracket corner-bottom-left" aria-hidden="true"></div>
             <div class="corner-bracket corner-bottom-right" aria-hidden="true"></div>
 
-            <!-- Internal Crisp Composite Card Container -->
-            <div id="qr-composite-card" class="qr-composite-card" role="img" aria-label="Generated custom QR code with brand label">
-              <div id="qr-brand-label-top" class="qr-brand-label qr-label-top" style="display: block;">YOUR COMPANY NAME</div>
-              <div id="qr-canvas-wrapper" class="qr-canvas-wrapper" aria-hidden="true"></div>
-              <div id="qr-brand-label-bottom" class="qr-brand-label qr-label-bottom" style="display: none;"></div>
+            <!-- Official Custom Brand Logo (Only this image is displayed) -->
+            <div id="brand-logo-card" class="brand-logo-card" role="img" aria-label="Official anyones-QR gen Custom Brand Logo">
+              <img src="/anyones-qr-gen_logo.svg" alt="anyones-QR gen custom logo emblem" class="brand-logo-img-main" />
+              <div class="brand-logo-footer-banner">
+                <span class="brand-tag-pill">✨ anyones-QR gen</span>
+                <span class="brand-subtag">Official Custom Logo</span>
+              </div>
             </div>
           </div>
 
-          <!-- Calculated Real-Time Metadata Panel -->
-          <div class="metadata-panel">
-            <div class="metadata-grid">
-              <div class="metadata-item">
-                <span class="meta-label">Payload Length</span>
-                <span id="meta-chars" class="meta-value">24 characters</span>
-              </div>
-              <div class="metadata-item">
-                <span class="meta-label">Output Resolution</span>
-                <span id="meta-res" class="meta-value">400 × 450 px (Composite)</span>
-              </div>
-              <div class="metadata-item">
-                <span class="meta-label">Brand Identifier</span>
-                <span id="meta-brand-tag" class="meta-value accent">Top: "YOUR COMPANY NAME"</span>
-              </div>
-              <div class="metadata-item">
-                <span class="meta-label">Security State</span>
-                <span class="meta-value accent">
-                  <span class="status-dot" aria-hidden="true"></span>
-                  Local Processing Secure
-                </span>
-              </div>
-            </div>
-
-            <div class="scan-test-banner">
-              <span><strong>Instant Scan Test:</strong> Point your phone camera directly at the canvas to test scannability.</span>
-              <span id="meta-redundancy-badge">ECC: Level H (30%)</span>
-            </div>
-          </div>
+          <!-- Hidden Offscreen Container for QR Generator Engine Downloads -->
+          <div id="qr-canvas-wrapper" style="position: absolute; width: 400px; height: 400px; visibility: hidden; pointer-events: none; left: -9999px; top: -9999px;" aria-hidden="true"></div>
         </div>
       </main>
     </div>

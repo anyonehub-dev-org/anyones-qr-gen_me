@@ -93,15 +93,11 @@ const elements = {
   btnCopyClipboard: document.getElementById('btn-copy-clipboard'),
   protocolChips: document.querySelectorAll('.protocol-chip'),
 
-  // Preview Stage & Composite Card
-  qrCompositeCard: document.getElementById('qr-composite-card'),
-  qrBrandLabelTop: document.getElementById('qr-brand-label-top'),
-  qrBrandLabelBottom: document.getElementById('qr-brand-label-bottom'),
+  // Preview Stage & Brand Logo
+  brandLogoCard: document.getElementById('brand-logo-card'),
+  btnUseCustomLogo: document.getElementById('btn-use-custom-logo'),
+
   qrCanvasWrapper: document.getElementById('qr-canvas-wrapper'),
-  metaChars: document.getElementById('meta-chars'),
-  metaRes: document.getElementById('meta-res'),
-  metaBrandTag: document.getElementById('meta-brand-tag'),
-  metaRedundancyBadge: document.getElementById('meta-redundancy-badge'),
 
   // Feedback Toast
   toastNotification: document.getElementById('toast-notification'),
@@ -287,16 +283,7 @@ function getEngineConfig() {
 
 function updateMetadata() {
   const len = state.data.length;
-  elements.charCount.textContent = len;
-  elements.metaChars.textContent = len > 0 ? `${len} character${len === 1 ? '' : 's'}` : '0 characters (Empty)';
-
-  const eccLabels = {
-    L: 'ECC: Level L (7%)',
-    M: 'ECC: Level M (15%)',
-    Q: 'ECC: Level Q (25%)',
-    H: 'ECC: Level H (30%)'
-  };
-  elements.metaRedundancyBadge.textContent = eccLabels[state.ecc] || 'ECC: Level H (30%)';
+  if (elements.charCount) elements.charCount.textContent = len;
 }
 
 function renderQR() {
@@ -336,7 +323,6 @@ function initQRCodeEngine() {
   elements.qrCanvasWrapper.style.backgroundColor = state.bgColor;
   updateContrastIndicator();
   updateMetadata();
-  renderBrandLabels();
 }
 
 // ============================================================================
@@ -620,6 +606,23 @@ async function copyCompositeImage() {
 // Event Listeners & Interactive Bindings
 // ============================================================================
 function attachEventListeners() {
+  // Preset: Use Official Logo as Center Badge
+  if (elements.btnUseCustomLogo) {
+    elements.btnUseCustomLogo.addEventListener('click', () => {
+      state.logoSrc = '/custom-logo-icon.svg';
+      state.logoName = 'anyones-qr-gen-icon.svg';
+      if (elements.logoActivePreview) elements.logoActivePreview.classList.add('active');
+      if (elements.logoDropzone) elements.logoDropzone.style.display = 'none';
+      if (elements.logoThumbnailImg) elements.logoThumbnailImg.src = state.logoSrc;
+      if (elements.logoFileName) elements.logoFileName.textContent = state.logoName;
+      if (elements.logoFileSize) elements.logoFileSize.textContent = 'Official Brand Badge';
+      if (elements.logoTuningRow) elements.logoTuningRow.classList.add('active');
+
+      renderQR();
+      showToast('Embedded official logo into QR code center!');
+    });
+  }
+
   // 1. Content Payload Input (Auto-clear on tap / focus)
   let payloadAutoCleared = false;
 
